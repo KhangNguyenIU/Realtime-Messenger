@@ -1,0 +1,11 @@
+@import "abstract/_variables.scss";
+@import "components/message";
+@import "components/message/ChatBox";
+@import "components/message/ChatGroup";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+

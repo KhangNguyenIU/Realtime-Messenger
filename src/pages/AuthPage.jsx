@@ -1,13 +1,11 @@
-import React from 'react'
-import Login from '../components/Auth/Login'
+import React from 'react';
+import Login from 'components/Auth/Login';
 
 /**
-* @author
-* @function AuthPage
-**/
+ * @author
+ * @function AuthPage
+ **/
 
-export const AuthPage = (props) => {
-  return(
-    <Login/>
-   )
-  }
+export const AuthPage = () => {
+  return <Login />;
+};

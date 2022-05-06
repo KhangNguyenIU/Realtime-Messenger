@@ -1,0 +1,32 @@
+
+@import "../../abstract/mixins.scss";
+
+.group-chat-wrapper{
+    display: flex;
+    width: 100%;
+
+    .img-box{
+        flex-basis: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include respond(sm){
+            flex-basis: 100%;
+        }
+        img{
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+        }
+    }
+
+    .group-info{
+        flex-basis: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        @include respond(sm){
+            display: none;
+        }
+    }
+}
