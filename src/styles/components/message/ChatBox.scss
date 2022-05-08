@@ -3,41 +3,34 @@
 .message-wrapper {
   height: 100vh;
   display: flex;
-
+  background-color: $primary-black-screen;
   .message-group-left {
-    flex-basis: 25%;
+    flex-basis: 400px;
     height: 100%;
-    background-color: aqua;
+    border-right: 0.5px solid $primary-gray;
     @include respond(xs) {
-      flex-basis: 15%;
+      flex-basis: 80px;
     }
 
     @include respond(md) {
-      flex-basis: 15%;
+      flex-basis: 80px;
     }
   }
 
   .message-chatbox-right {
     display: flex;
     flex-direction: column;
-    flex-basis: 75%;
+    flex-basis: 100%;
     height: 100%;
-
-    @include respond(xs) {
-      flex-basis: 85%;
-    }
-    @include respond(md) {
-      flex-basis: 85%; 
-    }
 
     .chatbox-header {
       flex-basis: 6%;
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: .5rem 2rem;
+      padding: 0.5rem 2rem;
       align-items: center;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 0.5px solid $primary-gray;
       img {
         width: 50px;
         height: 50px;
@@ -48,13 +41,22 @@
     .chatbox-content {
       flex-basis: 88%;
       overflow-y: scroll;
-        padding: .5rem 0;
+      padding: 0.5rem 0;
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px; 
+        background-color: $primary-gray-light;
+      }
+
+      &::-webkit-scrollbar{
+        background-color: $primary-gray;
+      }
+
       .message-content {
         max-width: 100%;
         display: flex;
         margin-bottom: 0.2rem;
         .message-owner-avatar {
-          width: 40px; 
+          width: 40px;
           height: 40px;
           display: flex;
           align-items: flex-end;
@@ -62,42 +64,42 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            cursor: pointer; 
+            cursor: pointer;
           }
         }
 
         .message {
-          margin-left: .5rem; 
+          margin-left: 0.5rem;
           max-width: 55%;
           display: flex;
           align-items: flex-end;
-         
-          .message-content{
-            padding: .6rem .8rem;
+
+          .message-content {
+            padding: 0.6rem 0.8rem;
             word-break: break-all;
-            font-size:1rem;
+            font-size: 1rem;
             border-radius: 15px;
             background-color: $primary-pink;
-            color: #eee
+            color: $secondary-gray;
           }
-        }   
+        }
       }
 
-      .my-message{
+      .my-message {
         max-width: 100%;
         display: flex;
         margin-bottom: 0.2rem;
         justify-content: flex-end;
-        .my-message-content{
-            margin-right: .5rem;
-            padding: .6rem .8rem;
-            word-break: break-all;
-            font-size:1rem;
-            border-radius: 15px;
-            background-color: $primary-gray;
-            color: #eee
+        .my-message-content {
+          margin-right: 0.5rem;
+          padding: 0.6rem 0.8rem;
+          word-break: break-all;
+          font-size: 1rem;
+          border-radius: 15px;
+          background-color: $primary-gray;
+          color: $secondary-gray;
         }
-    }
+      }
     }
 
     .chatbox-input {

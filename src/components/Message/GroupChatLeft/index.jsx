@@ -6,11 +6,19 @@ import { GroupMessage } from './GroupMessage'
 * @function GroupMessageList
 **/
 
-export const GroupMessageList = ({chatRooms}) => {
+export const GroupMessageList = ({chatRooms, setCurrentChatRoom}) => {
+
+    const handleClick = (chatRoom) => {
+        setCurrentChatRoom(chatRoom)
+    }
   return(
     <div>{
         !!chatRooms.length && chatRooms.map((room,index)=>(
-            <GroupMessage key ={index} groupInfo={room}/>
+            <GroupMessage 
+            key ={index} 
+            groupInfo={room}
+            handleClick={handleClick}
+            />
         ))
     }</div>
    )

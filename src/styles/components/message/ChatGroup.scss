@@ -1,32 +1,64 @@
 
 @import "../../abstract/mixins.scss";
 
-.group-chat-wrapper{
+.wrapper{
+    padding:0 1rem .2rem;
+    width:100%;
     display: flex;
-    width: 100%;
-
-    .img-box{
-        flex-basis: 20%;
+    height: 70px;
+    .group-chat-wrapper{
         display: flex;
-        justify-content: center;
-        align-items: center;
-        @include respond(sm){
-            flex-basis: 100%;
+        width: 100%;
+        border-radius: 10px;
+        transition: 300ms; 
+        cursor: pointer;
+        &:hover{
+            background-color: $primary-gray;
         }
-        img{
-            width: 80%;
-            height: 80%;
-            border-radius: 50%;
+        .img-box{
+            flex-basis: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include respond(md){
+                flex-basis: 100%;
+            }
+            img{
+                width: 60px; 
+                height: 60px;
+                border-radius: 50%;
+                @include respond(md){
+                    width: 60px; 
+                    height: 60px;
+                }
+            }
+        }
+    
+        .group-info{
+            // flex-basis: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            font-size:12px;
+            line-height: 15px;
+            @include respond(md){
+                display: none;
+            }
+
+            .group-name{
+                font-size: 16px;
+                font-weight: 400; 
+                margin-bottom: 6px;
+                color:$secondary-gray;
+            }
+
+            .group-last-message{ 
+                font-size: 12px;
+                color: $secondary-gray-light;
+            }
         }
     }
-
-    .group-info{
-        flex-basis: 80%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        @include respond(sm){
-            display: none;
-        }
-    }
+    
 }

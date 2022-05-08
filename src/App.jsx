@@ -30,7 +30,8 @@ function App() {
   useEffect(() => {
     const newSocket = io('http://localhost:8000');
     setSocket(newSocket);
-    dispatch(initSocket(newSocket));
+    // console.log(typeof newSocket, newSocket);
+    // dispatch(initSocket(JSON.stringify(newSocket)));
   }, [setSocket]);
 
   return (

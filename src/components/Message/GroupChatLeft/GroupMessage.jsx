@@ -1,30 +1,32 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
-* @author
-* @function GroupMessage
-**/
+ * @author
+ * @function GroupMessage
+ **/
 
-export const GroupMessage = ({groupInfo}) => {
-    // console.log('groupInfo',groupInfo)
-    
-  return( 
-    <div className="group-chat-wrapper">
-        <div className='img-box'>
-            <img src={groupInfo?.avatar} alt='group-avatar'/>
+export const GroupMessage = ({ groupInfo, handleClick }) => {
+  // console.log('groupInfo',groupInfo)
+
+  return (
+    <div className='wrapper'>
+      <div
+        className="group-chat-wrapper"
+        onClick={() => handleClick(groupInfo)}
+      >
+        <div className="img-box">
+          <img src={groupInfo?.avatar} alt="group-avatar" />
         </div>
-        <div className='group-info'>
-            <div> Khang Duy</div>
-            <div>
-                hello
-            </div>
+        <div className="group-info">
+          <div className='group-name'> {groupInfo.name}</div>
+          <div className='group-last-message'>hello</div>
         </div>
+      </div>
     </div>
-   )
-  }
-
+  );
+};
 
 GroupMessage.propTypes = {
-    groupInfo: PropTypes.object
-}
+  groupInfo: PropTypes.object,
+};

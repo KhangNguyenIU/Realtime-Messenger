@@ -10,7 +10,7 @@ export const ChatBoxHeader = ({groupInfo}) => {
     <div className="chatbox-header">
         <img alt='group-avater' src={groupInfo?.avatar}/>
         <div className='chatbox-tool-info'>
-            <InfoIcon/>
+            <InfoIcon sx={{color: 'white'}}/>
         </div>
     </div>
    )
