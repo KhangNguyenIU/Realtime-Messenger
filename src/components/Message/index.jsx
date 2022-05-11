@@ -11,7 +11,7 @@ import { ChatBoxRight } from './ChatBoxRight';
 export const MessageComponent = ({ socket }) => {
   const [chatRooms, setChatRooms] = useState([]);
   const [currentChatRoom, setCurrentChatRoom] = useState(null);
-
+//   console.log('currentChatRoom', currentChatRoom);
   useEffect(() => {
     const getChatRooms = async () => {
       try {
@@ -31,6 +31,8 @@ export const MessageComponent = ({ socket }) => {
       <div className="message-group-left">
         <GroupMessageList 
         chatRooms={chatRooms} 
+        currentChatRoom={currentChatRoom}
+        socket={socket}
         setCurrentChatRoom={setCurrentChatRoom} />
       </div>
 

@@ -1,22 +1,33 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Message } from './MessageText';
+import { TypingLoadingMessage } from './MessageText/TypingLoadingMessage';
 
 /**
  * @author
  * @function ChatBoxContent
  **/
 
-export const ChatBoxContent = ({ messages }) => {
+export const ChatBoxContent = ({ messages, isTypingList }) => {
   const chatBoxRef = useRef(null);
+
+  useEffect(() => {
+    chatBoxRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isTypingList]);
 
   return (
     <React.Fragment>
-      <div className="chatbox-content" ref={chatBoxRef}>
-          {
-              !!messages && messages.map((message, index) => (
-                    <Message key={index} message={message} />
-              ))
-          }
+      <div className="chatbox-content">
+        {!!messages &&
+          messages.map((message, index) => (
+            <Message key={index} message={message} />
+          ))}
+
+          
+        <div ref={chatBoxRef} >
+            {
+                !!isTypingList.length && ( <TypingLoadingMessage/>)
+            }
+        </div>
       </div>
     </React.Fragment>
   );

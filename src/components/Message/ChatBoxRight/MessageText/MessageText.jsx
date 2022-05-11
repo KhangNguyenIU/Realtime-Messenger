@@ -9,7 +9,7 @@ export const MessageText = ({ message }) => {
   return (
     <div className="message-content">
       <div className="message-owner-avatar">
-        <img src={message.postedBy.avatar} />
+        <img src={message.postedBy.avatar} alt ="user avatar"/>
       </div>
       <div className="message">
           <div className='message-content'>

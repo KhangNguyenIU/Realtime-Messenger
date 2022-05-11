@@ -1,17 +1,20 @@
-import React from 'react'
+import React from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 /**
-* @author
-* @function ChatBoxHeader
-**/
+ * @author
+ * @function ChatBoxHeader
+ **/
 
-export const ChatBoxHeader = ({groupInfo}) => {
-  return(
+export const ChatBoxHeader = ({ groupInfo }) => {
+  return (
     <div className="chatbox-header">
-        <img alt='group-avater' src={groupInfo?.avatar}/>
-        <div className='chatbox-tool-info'>
-            <InfoIcon sx={{color: 'white'}}/>
-        </div>
+      <div className='chatbox-header-info'>
+        <img alt="group-avater" src={groupInfo?.avatar} />
+        <p style={{color: 'white'}}>{groupInfo?.name}</p>
+      </div>
+      <div className="chatbox-tool-info">
+        <InfoIcon sx={{ color: 'white' }} />
+      </div>
     </div>
-   )
-  }
+  );
+};

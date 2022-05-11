@@ -36,3 +36,23 @@ export const handleCommonResponse = (response, options = {}) => {
 
     return data;
 };
+
+
+export const addObjectToUniqueArray = (array, object, isTyping) => {
+    let index = array.findIndex(item => item._id === object._id);
+    if(index === -1 && isTyping){
+        array.push(object);
+    }
+    if(index !== -1 && !isTyping){
+        array.splice(index, 1);
+    }
+    return array
+}
+
+export const removeObjectFromUniqueArray = (array, object) => {
+    let index = array.findIndex(item => item._id === object._id);
+    if (index !== -1) {
+        array.splice(index, 1);
+    }
+    return array;
+}

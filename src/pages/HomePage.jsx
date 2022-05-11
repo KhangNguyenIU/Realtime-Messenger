@@ -8,6 +8,9 @@ const HomePage = () => {
     <div>
       <div>HomePage</div>
       <img src="https://unsplash.com/photos/oJJ9WFl0q-I" alt="alt" />
+      <div>
+     
+      </div>
     </div>
   );
 };

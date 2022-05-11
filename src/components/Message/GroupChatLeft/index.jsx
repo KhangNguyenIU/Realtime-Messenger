@@ -6,9 +6,12 @@ import { GroupMessage } from './GroupMessage'
 * @function GroupMessageList
 **/
 
-export const GroupMessageList = ({chatRooms, setCurrentChatRoom}) => {
+export const GroupMessageList = ({chatRooms, setCurrentChatRoom, currentChatRoom, socket}) => {
 
     const handleClick = (chatRoom) => {
+        if(socket && currentChatRoom){
+            socket.emit('leaveRoom',currentChatRoom._id)
+        }
         setCurrentChatRoom(chatRoom)
     }
   return(

@@ -31,6 +31,15 @@
       padding: 0.5rem 2rem;
       align-items: center;
       border-bottom: 0.5px solid $primary-gray;
+      .chatbox-header-info {
+        display: flex;
+        align-items: center;
+        p {
+          margin-left: 0.5rem;
+          font-size: 1.1rem;
+          font-family: 'Lora', sans;
+        }
+      }
       img {
         width: 50px;
         height: 50px;
@@ -43,11 +52,11 @@
       overflow-y: scroll;
       padding: 0.5rem 0;
       &::-webkit-scrollbar-thumb {
-        border-radius: 10px; 
+        border-radius: 10px;
         background-color: $primary-gray-light;
       }
 
-      &::-webkit-scrollbar{
+      &::-webkit-scrollbar {
         background-color: $primary-gray;
       }
 
@@ -56,6 +65,7 @@
         display: flex;
         margin-bottom: 0.2rem;
         .message-owner-avatar {
+          margin-left: 1rem;
           width: 40px;
           height: 40px;
           display: flex;
@@ -69,11 +79,10 @@
         }
 
         .message {
-          margin-left: 0.5rem;
           max-width: 55%;
           display: flex;
           align-items: flex-end;
-
+          margin-left: 0.5rem;
           .message-content {
             padding: 0.6rem 0.8rem;
             word-break: break-all;
@@ -90,6 +99,7 @@
         display: flex;
         margin-bottom: 0.2rem;
         justify-content: flex-end;
+        margin-right: 1rem;
         .my-message-content {
           margin-right: 0.5rem;
           padding: 0.6rem 0.8rem;
@@ -105,14 +115,32 @@
     .chatbox-input {
       flex-basis: 6%;
       display: flex;
+      align-items: center;
+      .chat-input-tool {
+        display: flex;
+        > * {
+          margin: 0.5rem;
+          cursor: pointer;
+          color: white;
+          transition: 200ms;
+          &:hover {
+            color: $primary-pink;
+          }
+        }
+      }
       .message-input {
         width: 100%;
         height: 100%;
         border: none;
         outline: none;
         resize: none;
-        font-size: 1.2rem;
-        padding: 10px;
+        font-size: 16px;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 20px;
+        padding: 0 30px;
+        background-color: $primary-gray;
+        color: $secondary-gray-light;
+        word-break: break-all;
       }
     }
   }

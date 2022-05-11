@@ -1,0 +1,64 @@
+.message-typing-wrapper{
+    margin-left: 30px;
+    padding:10px 15px;
+    .message-typing{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        height: 36px;
+        background-color: $primary-pink;
+        width: 70px;
+        border-radius: 20px;
+        padding:10px 15px;
+        .dot-flashing {
+            position: relative;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: $primary-gray-light;
+            color: $primary-gray-light;
+            animation: dotFlashing 1s infinite linear alternate;
+            animation-delay: .5s;
+        
+            &::before {
+                left: -15px;
+                width: 10px;
+                height: 10px;
+                border-radius: 5px;
+                background-color: $primary-gray-light;
+                color: $primary-gray-light;
+                animation: dotFlashing 1s infinite alternate;
+                animation-delay: 0s;
+              } 
+        
+              &::after {
+                left: 15px;
+                width: 10px;
+                height: 10px;
+                border-radius: 5px;
+                background-color: $primary-gray-light;
+                color: $primary-gray-light;
+                animation: dotFlashing 1s infinite alternate;
+                animation-delay: 1s;
+              }
+        
+              &::before, &::after {
+                content: '';
+                display: inline-block;
+                position: absolute;
+                top: 0;
+              }
+          }
+          
+    }
+}
+  
+  @keyframes dotFlashing {
+    0% {
+      background-color: $primary-gray-light;
+    }
+    50%,
+    100% {
+      background-color: #ebe6ff;
+    }
+  }
