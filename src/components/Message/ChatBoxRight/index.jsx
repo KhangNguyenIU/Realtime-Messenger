@@ -1,9 +1,12 @@
+import useEventListener from 'hooks/useEventListener';
+import useToggle from 'hooks/useToggle';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import messageService from 'services/message/message.service';
 import { addObjectToUniqueArray } from 'utils';
 import { ChatBoxContent } from './ChatBoxContent';
 import { ChatBoxHeader } from './ChatBoxHeader';
+import { ForwardMessageModal } from './ForwardMessageModal';
 import { ChatInput } from './MessageText/ChatInput';
 
 /**
@@ -11,16 +14,17 @@ import { ChatInput } from './MessageText/ChatInput';
  * @function ChatBoxRight
  **/
 
-export const ChatBoxRight = ({ socket, groupInfo }) => {
+export const ChatBoxRight = ({ socket, groupInfo , chatRooms}) => {
   const user = useSelector((state) => state.auth.user);
   const [textInput, setTextInput] = useState('');
   const [messages, setMessages] = useState(null);
   const [isTypingList, setIsTypingList] = useState([]);
+  const [toggle, handleOpenToggle, handleCloseToggle] = useToggle();
+    const [forwardMessage , setForwardMessage] = useState("");
 
- console.log("typing", isTypingList)
   useEffect(() => {
     if (socket && groupInfo) {
-        //join room on connect
+      //join room on connect
       socket.emit('joinRoom', groupInfo._id);
 
       //receive list of user who are typing
@@ -33,12 +37,13 @@ export const ChatBoxRight = ({ socket, groupInfo }) => {
         }
       });
     }
+    // eslint-disable-next-line
   }, [socket, groupInfo]);
 
   useEffect(() => {
     if (socket) {
       socket.on('recieve-message', (fields) => {
-        const { chatRoomId, message } = fields;
+        const { message } = fields;
         setMessages((state) => [...state, message]);
       });
     }
@@ -49,6 +54,7 @@ export const ChatBoxRight = ({ socket, groupInfo }) => {
     setIsTypingList([]);
     //eslint-disable-next-line
   }, [groupInfo, setMessages]);
+  
 
   const getMessage = useCallback(async () => {
     if (groupInfo) {
@@ -60,6 +66,8 @@ export const ChatBoxRight = ({ socket, groupInfo }) => {
       } catch (error) {}
     }
   }, [groupInfo]);
+
+
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -77,8 +85,12 @@ export const ChatBoxRight = ({ socket, groupInfo }) => {
     <React.Fragment>
       <ChatBoxHeader groupInfo={groupInfo} />
 
-      <ChatBoxContent messages={messages}
-      isTypingList={isTypingList}
+      <ChatBoxContent
+        messages={messages}
+        isTypingList={isTypingList}
+        handleOpenDialog={handleOpenToggle}
+        chatRooms={chatRooms}
+        setForwardMessage={setForwardMessage}
       />
 
       <ChatInput
@@ -87,6 +99,14 @@ export const ChatBoxRight = ({ socket, groupInfo }) => {
         handleSendMessage={handleSendMessage}
         socket={socket}
         groupInfo={groupInfo}
+      />
+
+      <ForwardMessageModal
+        openDialog={toggle}
+        socket={socket}
+        handleCloseDialog={handleCloseToggle}
+        forwardMessage={forwardMessage}
+        chatRooms={[...chatRooms.filter((room) => room._id !== groupInfo._id)]}
       />
     </React.Fragment>
   );

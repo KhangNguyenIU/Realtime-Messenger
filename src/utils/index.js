@@ -1,16 +1,14 @@
 import authService from "services/auth/auth.service";
 
 export const isAuthenticated = async () => {
-    return new Promise((resolve, reject) => {
-        authService.getAuthUser().then(response => {
-            if(response.status ===200 && response?.data?.user ){
-                resolve(true)
-            }
+    try {
+        const response = await authService.getAuthUser();
+        if (response?.data) {
+            return true
         }
-        ).catch(error => {
-            reject(false);
-        })
-    })
+    } catch (error) {
+        return false
+    }
 }
 export const handleUnauthorizedResponse = (response, redirect) => {
     if (response.status === 401) {

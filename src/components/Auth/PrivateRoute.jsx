@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { isAuthenticated } from 'utils';
+import { useSelector } from 'react-redux';
 
 /**
  * @author
@@ -9,13 +10,22 @@ import { isAuthenticated } from 'utils';
  **/
 
 const PrivateRoute = ({ children }) => {
+    const navigate = useNavigate()
 
-  let isAuth = true;
-  (async () => {
-    isAuth = await isAuthenticated();
-  })();
+    useLayoutEffect(() => {
+        (async()=>{
+            const auth = await isAuthenticated()
+            if(!auth){
+                navigate('/auth')
+            }
+        })()
+    }, []);
 
-  return isAuth ? children : <Navigate to="/auth" replace />;
+  return (
+    <React.Fragment>
+      {children}
+    </React.Fragment>
+  );
 };
 
 PrivateRoute.propTypes = {

@@ -9,13 +9,12 @@ import { MessagePage } from 'pages/Message/MessagePage';
 import PrivateRoute from 'components/Auth/PrivateRoute';
 import { Notification } from 'components/Common/Notification';
 import { AuthPage } from './pages/AuthPage';
-import { initSocket } from 'slices/Socket/socket.slice';
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
-
   const [socket, setSocket] = useState(null);
+
   useEffect(() => {
     if (localStorage.getItem('token')) {
       try {
@@ -30,8 +29,6 @@ function App() {
   useEffect(() => {
     const newSocket = io('http://localhost:8000');
     setSocket(newSocket);
-    // console.log(typeof newSocket, newSocket);
-    // dispatch(initSocket(JSON.stringify(newSocket)));
   }, [setSocket]);
 
   return (
@@ -44,8 +41,8 @@ function App() {
           <Route
             path="/message"
             element={
-              <PrivateRoute>
-                <MessagePage socket={socket} />
+              <PrivateRoute user={user}>
+                <MessagePage  socket={socket} />
               </PrivateRoute>
             }
           />

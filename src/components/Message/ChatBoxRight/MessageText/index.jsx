@@ -8,7 +8,7 @@ import { MyMessageText } from './MyMessageText';
  * @function Message
  **/
 
-export const Message = ({ message }) => {
+export const Message = ({ message , handleOpenDialog,setForwardMessage }) => {
   const user = useSelector((state) => state.auth.user);
   const isMyMessage = message.postedBy._id === user._id;
   
@@ -17,7 +17,11 @@ export const Message = ({ message }) => {
       {isMyMessage ? (
         <MyMessageText message={message} />
       ) : (
-        <MessageText message={message} />
+        <MessageText 
+        message={message}
+         handleOpenDialog={handleOpenDialog}
+         setForwardMessage={setForwardMessage}
+         />
       )}
     </React.Fragment>
   );

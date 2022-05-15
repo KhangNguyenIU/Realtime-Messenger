@@ -9,7 +9,8 @@ const messageService = {
     getChatRoomofUser(){
         const url ='/chatroom/get-user-rooms'
         return axiosClient.get(url);
-    }
+    },
+    
 }
 
 export default messageService;

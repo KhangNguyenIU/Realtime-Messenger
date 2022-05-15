@@ -7,7 +7,7 @@ import { TypingLoadingMessage } from './MessageText/TypingLoadingMessage';
  * @function ChatBoxContent
  **/
 
-export const ChatBoxContent = ({ messages, isTypingList }) => {
+export const ChatBoxContent = ({ messages, isTypingList, handleOpenDialog ,chatRooms, setForwardMessage}) => {
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
@@ -17,12 +17,17 @@ export const ChatBoxContent = ({ messages, isTypingList }) => {
   return (
     <React.Fragment>
       <div className="chatbox-content">
+
         {!!messages &&
           messages.map((message, index) => (
-            <Message key={index} message={message} />
+            <Message 
+            key={index}
+             message={message} 
+             handleOpenDialog={handleOpenDialog} 
+             setForwardMessage={setForwardMessage}
+             chatRooms={chatRooms}/>
           ))}
-
-          
+    
         <div ref={chatBoxRef} >
             {
                 !!isTypingList.length && ( <TypingLoadingMessage/>)
