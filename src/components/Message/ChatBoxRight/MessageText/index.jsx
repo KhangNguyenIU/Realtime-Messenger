@@ -14,7 +14,7 @@ export const Message = ({ message , handleOpenDialog,setForwardMessage }) => {
   
   return (
     <React.Fragment>
-      {isMyMessage ? (
+      {/* {isMyMessage ? (
         <MyMessageText message={message} />
       ) : (
         <MessageText 
@@ -22,7 +22,13 @@ export const Message = ({ message , handleOpenDialog,setForwardMessage }) => {
          handleOpenDialog={handleOpenDialog}
          setForwardMessage={setForwardMessage}
          />
-      )}
+      )} */}
+       <MessageText 
+        message={message}
+         handleOpenDialog={handleOpenDialog}
+         setForwardMessage={setForwardMessage}
+         isMyMessage={isMyMessage}
+         />
     </React.Fragment>
   );
 };

@@ -8,15 +8,20 @@ import useWindowSize from 'hooks/useWindowSize';
  * @function MessageText
  **/
 
-export const MessageText = ({ message,handleOpenDialog,setForwardMessage }) => {
+export const MessageText = ({
+  message,
+  handleOpenDialog,
+  setForwardMessage,
+  isMyMessage,
+}) => {
   const messageRef = useRef(null);
   const [isOpenTool, setIsonOpenTool] = useState(false);
   const [tooltipPlace, setTooltipPlace] = useState('bottom');
   const { height: windowHeight } = useWindowSize();
 
   const handleClick = () => {
-    handleOpenDialog()
-    setForwardMessage(message.message)
+    handleOpenDialog();
+    setForwardMessage(message.message);
   };
 
   const handleMouseEnter = () => {
@@ -35,25 +40,30 @@ export const MessageText = ({ message,handleOpenDialog,setForwardMessage }) => {
 
   return (
     <div
-      className="message-content"
+      className={`message-content ${isMyMessage ? 'is-my-message' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsonOpenTool(false)}
     >
-      <div className="message-owner-avatar">
-        <img src={message.postedBy.avatar} alt="user avatar" />
-      </div>
+      <div className={`message-part-dir ${isMyMessage ? 'is-my-message' : ''}`}>
+        <div
+          className={`message-owner-avatar ${
+            isMyMessage ? 'is-my-message' : ''
+          }`}
+        >
+          <img src={message.postedBy.avatar} alt="user avatar" />
+        </div>
 
-      <div className="message">
-        <div className="message-content">{message.message}</div>
+        <div className="message">
+          <div className="message-text">{message.message}</div>
+        </div>
       </div>
-
       <div
         className="message-forward"
         ref={messageRef}
         onClick={handleClick}
         hidden
       >
-        {isOpenTool && (
+        {isOpenTool && !isMyMessage && (
           <Tooltip title="Forward" placement={tooltipPlace}>
             <ArrowCircleLeftIcon />
           </Tooltip>
