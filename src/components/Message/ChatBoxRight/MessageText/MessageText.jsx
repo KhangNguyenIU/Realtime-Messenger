@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import { Tooltip } from '@mui/material';
-import useEventListener from 'hooks/useEventListener';
+import { Avatar, Tooltip } from '@mui/material';
 import useWindowSize from 'hooks/useWindowSize';
 /**
  * @author
@@ -19,11 +18,21 @@ export const MessageText = ({
   const [tooltipPlace, setTooltipPlace] = useState('bottom');
   const { height: windowHeight } = useWindowSize();
 
+  const classes = useMemo(() => {
+    return {
+      messageContent: 'message-content ' + (isMyMessage && 'is-my-message'),
+      messagePart: 'message-part-dir ' + (isMyMessage && 'is-my-message'),
+      messageText: 'message-text ' + (isMyMessage && 'is-my-message'),
+    };
+  }, [isMyMessage]);
+
+  //Click forward button
   const handleClick = () => {
     handleOpenDialog();
     setForwardMessage(message.message);
   };
 
+  //Mouse move over the message then appear the forward button
   const handleMouseEnter = () => {
     setIsonOpenTool(true);
     if (messageRef.current) {
@@ -40,21 +49,19 @@ export const MessageText = ({
 
   return (
     <div
-      className={`message-content ${isMyMessage ? 'is-my-message' : ''}`}
+      className={classes.messageContent}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsonOpenTool(false)}
     >
-      <div className={`message-part-dir ${isMyMessage ? 'is-my-message' : ''}`}>
-        <div
-          className={`message-owner-avatar ${
-            isMyMessage ? 'is-my-message' : ''
-          }`}
-        >
-          <img src={message.postedBy.avatar} alt="user avatar" />
-        </div>
+      <div className={classes.messagePart}>
+        {!isMyMessage && (
+          <div className="message-owner-avatar">
+            <Avatar src={message.postedBy.avatar} alt="user avatar" />
+          </div>
+        )}
 
         <div className="message">
-          <div className="message-text">{message.message}</div>
+          <div className={classes.messageText}>{message.message}</div>
         </div>
       </div>
       <div
@@ -63,7 +70,7 @@ export const MessageText = ({
         onClick={handleClick}
         hidden
       >
-        {isOpenTool && !isMyMessage && (
+        {isOpenTool && (
           <Tooltip title="Forward" placement={tooltipPlace}>
             <ArrowCircleLeftIcon />
           </Tooltip>

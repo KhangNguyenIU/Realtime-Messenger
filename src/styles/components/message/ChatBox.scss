@@ -61,17 +61,23 @@
       }
 
       .message-content {
+        &.is-typing{
+            padding-left:1rem;
+        }
+
+
         display: flex;
         width: 100%;
-        justify-content: flex-start;
-        & .is-my-message {
-          justify-content: flex-end;
-        //   flex-direction: row-reverse;
-        }
+        &.is-my-message{
+            flex-direction: row-reverse;
+          }
         .message-part-dir {
           max-width: 80%;
           display: flex;
           margin-bottom: 0.2rem;
+          &.is-my-message{
+            flex-direction: row-reverse;
+          }
 
           .message-owner-avatar {
             margin-left: 1rem;
@@ -79,7 +85,6 @@
             height: 40px;
             display: flex;
             align-items: flex-end;
-            // flex-basis: 50px;
             img {
               width: 100%;
               height: 100%;
@@ -89,12 +94,9 @@
           }
 
           .message {
-            // max-width: 60%;
             display: flex;
-            align-items: flex-end;
             margin-left: 0.5rem;
-            flex-basis: 80%;
-            // width:100%;
+            width: 100%;
             .message-text {
               padding: 0.6rem 0.8rem;
               word-break: break-all;
@@ -102,6 +104,11 @@
               border-radius: 15px;
               background-color: $primary-pink;
               color: $secondary-gray;
+              &.is-my-message{
+                background-color: $primary-gray;
+                color: $secondary-gray;
+                margin-right : 0.5rem;
+              }
             }
           }
         }
@@ -115,23 +122,6 @@
           &:hover {
             color: $primary-pink;
           }
-        }
-      }
-
-      .my-message {
-        max-width: 100%;
-        display: flex;
-        margin-bottom: 0.2rem;
-        justify-content: flex-end;
-        margin-right: 1rem;
-        .my-message-content {
-          margin-right: 0.5rem;
-          padding: 0.6rem 0.8rem;
-          word-break: break-all;
-          font-size: 1rem;
-          border-radius: 15px;
-          background-color: $primary-gray;
-          color: $secondary-gray;
         }
       }
     }

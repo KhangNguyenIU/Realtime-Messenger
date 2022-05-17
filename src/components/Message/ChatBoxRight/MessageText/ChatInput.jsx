@@ -4,7 +4,6 @@ import SendIcon from '@mui/icons-material/Send';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import ImageIcon from '@mui/icons-material/Image';
 import { EmojiEmotions } from '@mui/icons-material';
-import { Socket } from 'socket.io-client';
 import { useSelector } from 'react-redux';
 /**
  * @author

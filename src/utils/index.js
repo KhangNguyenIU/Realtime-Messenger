@@ -54,3 +54,10 @@ export const removeObjectFromUniqueArray = (array, object) => {
     }
     return array;
 }
+
+export const stringCut = (str, length) => {
+    if (str.length > length) {
+        return str.substring(0, length) + '...';
+    }
+    return str;
+}

@@ -7,7 +7,7 @@ import React from 'react';
 
 export const TypingLoadingMessage = (props) => {
   return (
-    <div className="message-content">
+    <div className="message-content is-typing">
       <div className='message-typing-wrapper'>
         <div className="message-typing">
           <div className="dot-flashing"></div>

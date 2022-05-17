@@ -10,7 +10,7 @@
 </div>
 
 
-### Backend [repository](https://github.com/KhangNguyenIU/WAD---Chat-app-Api)
+> Backend [repository](https://github.com/KhangNguyenIU/WAD---Chat-app-Api)
 ## Description
 
 This project is the evaluation assignment for the Web Applcation and development course in [International University](https://hcmiu.edu.vn/). Feel free to folk for any personal use.

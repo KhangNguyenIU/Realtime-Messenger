@@ -19,7 +19,7 @@ const PrivateRoute = ({ children }) => {
                 navigate('/auth')
             }
         })()
-    }, []);
+    }, [navigate]);
 
   return (
     <React.Fragment>

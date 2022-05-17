@@ -8,19 +8,26 @@ import { ChatBoxContent } from './ChatBoxContent';
 import { ChatBoxHeader } from './ChatBoxHeader';
 import { ForwardMessageModal } from './ForwardMessageModal';
 import { ChatInput } from './MessageText/ChatInput';
+import whyDidYouRender from '@welldone-software/why-did-you-render';
 
+whyDidYouRender(React, {
+  onlyLogs: true,
+  titleColor: 'green',
+  diffNameColor: 'darkturquoise',
+});
 /**
  * @author
  * @function ChatBoxRight
  **/
 
-export const ChatBoxRight = ({ socket, groupInfo , chatRooms}) => {
+export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
+    console.log("chatbos right render")
   const user = useSelector((state) => state.auth.user);
   const [textInput, setTextInput] = useState('');
   const [messages, setMessages] = useState(null);
   const [isTypingList, setIsTypingList] = useState([]);
   const [toggle, handleOpenToggle, handleCloseToggle] = useToggle();
-    const [forwardMessage , setForwardMessage] = useState("");
+  const [forwardMessage, setForwardMessage] = useState('');
 
   useEffect(() => {
     if (socket && groupInfo) {
@@ -46,6 +53,10 @@ export const ChatBoxRight = ({ socket, groupInfo , chatRooms}) => {
         const { message } = fields;
         setMessages((state) => [...state, message]);
       });
+
+      socket.on('private-notification', data =>{
+          console.log("private-notification", data)
+      })
     }
   }, [socket]);
 
@@ -54,7 +65,6 @@ export const ChatBoxRight = ({ socket, groupInfo , chatRooms}) => {
     setIsTypingList([]);
     //eslint-disable-next-line
   }, [groupInfo, setMessages]);
-  
 
   const getMessage = useCallback(async () => {
     if (groupInfo) {
@@ -67,8 +77,6 @@ export const ChatBoxRight = ({ socket, groupInfo , chatRooms}) => {
     }
   }, [groupInfo]);
 
-
-
   const handleSendMessage = (e) => {
     e.preventDefault();
     let messagePacket = {
@@ -78,6 +86,7 @@ export const ChatBoxRight = ({ socket, groupInfo , chatRooms}) => {
     };
 
     socket.emit('send-message', messagePacket);
+    socket.emit('user-stop-typing',{chatRoomId :groupInfo._id, user:user});
     setTextInput('');
   };
 
@@ -89,7 +98,6 @@ export const ChatBoxRight = ({ socket, groupInfo , chatRooms}) => {
         messages={messages}
         isTypingList={isTypingList}
         handleOpenDialog={handleOpenToggle}
-        chatRooms={chatRooms}
         setForwardMessage={setForwardMessage}
       />
 
@@ -106,8 +114,10 @@ export const ChatBoxRight = ({ socket, groupInfo , chatRooms}) => {
         socket={socket}
         handleCloseDialog={handleCloseToggle}
         forwardMessage={forwardMessage}
-        chatRooms={[...chatRooms.filter((room) => room._id !== groupInfo._id)]}
+        groupInfo={groupInfo}
       />
     </React.Fragment>
   );
-};
+});
+
+ChatBoxRight.whyDidYouRender = true;

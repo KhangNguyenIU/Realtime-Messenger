@@ -8,12 +8,14 @@ import { GroupMessage } from './GroupMessage'
 
 export const GroupMessageList = ({chatRooms, setCurrentChatRoom, currentChatRoom, socket}) => {
 
+    
     const handleClick = (chatRoom) => {
         if(socket && currentChatRoom){
             socket.emit('leaveRoom',currentChatRoom._id)
         }
         setCurrentChatRoom(chatRoom)
     }
+
   return(
     <div>{
         !!chatRooms.length && chatRooms.map((room,index)=>(

@@ -7,7 +7,7 @@ import { TypingLoadingMessage } from './MessageText/TypingLoadingMessage';
  * @function ChatBoxContent
  **/
 
-export const ChatBoxContent = ({ messages, isTypingList, handleOpenDialog ,chatRooms, setForwardMessage}) => {
+export const ChatBoxContent = ({ messages, isTypingList, handleOpenDialog ,setForwardMessage}) => {
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export const ChatBoxContent = ({ messages, isTypingList, handleOpenDialog ,chatR
              message={message} 
              handleOpenDialog={handleOpenDialog} 
              setForwardMessage={setForwardMessage}
-             chatRooms={chatRooms}/>
+             />
           ))}
     
         <div ref={chatBoxRef} >

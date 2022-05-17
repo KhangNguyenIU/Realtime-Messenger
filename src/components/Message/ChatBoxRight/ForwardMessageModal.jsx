@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import {
@@ -15,6 +15,7 @@ import CheckIcon from '@mui/icons-material/Check';
 
 import { Box } from '@mui/system';
 import { useSelector } from 'react-redux';
+import messageService from 'services/message/message.service';
 
 /**
  * @author
@@ -24,51 +25,25 @@ import { useSelector } from 'react-redux';
 export const ForwardMessageModal = ({
   openDialog,
   handleCloseDialog,
-  chatRooms,
+  groupInfo,
   socket,
   forwardMessage,
 }) => {
-  const GroupForward = ({ room, socket, forwardMessage }) => {
-    const user = useSelector((state) => state.auth.user);
-    const [isForwarded, setForwared] = useState(false);
+  const [chatRooms, setChatRooms] = useState([]);
+  
+  useEffect(() => {
+    getChatRooms();
+  }, []);
 
-    const handleClick = (e) => {
-      e.preventDefault();
-      if (socket && forwardMessage !== '' && !isForwarded) {
-        let messagePacket = {
-          chatRoomId: room._id,
-          message: forwardMessage,
-          postedBy: user._id,
-        };
-
-        socket.emit('send-message', messagePacket);
-        setForwared(true);
-      }
-    };
-    return (
-      <React.Fragment>
-        <ListItem>
-          <Box
-            display="flex"
-            alignItems="center"
-            width="100%"
-            justifyContent="space-between"
-          >
-            <Box display="flex" alignItems="center">
-              <ListItemAvatar>
-                <Avatar src={room.avatar} alt="group-avatar"></Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={room.name} />
-            </Box>
-            <Button 
-            onClick={handleClick}>
-                {!isForwarded ? "Send" : <CheckIcon/>}
-                </Button>
-          </Box>
-        </ListItem>
-      </React.Fragment>
-    );
+  const getChatRooms = async () => {
+    try {
+      const response = await messageService.getChatRoomofUser();
+      setChatRooms([...response.data.chatrooms.filter((room) => room._id !== groupInfo._id)]);
+    } catch (error) {
+      //   console.log(error);
+    }
   };
+
   return (
     <div>
       <Dialog
@@ -94,5 +69,46 @@ export const ForwardMessageModal = ({
         </DialogContent>
       </Dialog>
     </div>
+  );
+};
+
+const GroupForward = ({ room, socket, forwardMessage }) => {
+  const user = useSelector((state) => state.auth.user);
+  const [isForwarded, setForwared] = useState(false);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (socket && forwardMessage !== '' && !isForwarded) {
+      let messagePacket = {
+        chatRoomId: room._id,
+        message: forwardMessage,
+        postedBy: user._id,
+      };
+
+      socket.emit('send-message', messagePacket);
+      setForwared(true);
+    }
+  };
+  return (
+    <React.Fragment>
+      <ListItem>
+        <Box
+          display="flex"
+          alignItems="center"
+          width="100%"
+          justifyContent="space-between"
+        >
+          <Box display="flex" alignItems="center">
+            <ListItemAvatar>
+              <Avatar src={room.avatar} alt="group-avatar"></Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={room.name} />
+          </Box>
+          <Button onClick={handleClick}>
+            {!isForwarded ? 'Send' : <CheckIcon />}
+          </Button>
+        </Box>
+      </ListItem>
+    </React.Fragment>
   );
 };

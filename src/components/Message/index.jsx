@@ -11,20 +11,31 @@ import { ChatBoxRight } from './ChatBoxRight';
 export const MessageComponent = ({ socket }) => {
   const [chatRooms, setChatRooms] = useState([]);
   const [currentChatRoom, setCurrentChatRoom] = useState(null);
+    // console.log(chatRooms)
+
+  useEffect(()=>{
+    if(socket){
+        socket.on('recieve-message', data =>{
+            console.log('recive message', data)
+            getChatRooms(false)
+        })
+    }
+  },[socket])
 
   useEffect(() => {
-    const getChatRooms = async () => {
-      try {
-        const response = await messageService.getChatRoomofUser();
-        setChatRooms(response.data.chatrooms);
-        setCurrentChatRoom(response.data.chatrooms[0]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     getChatRooms();
   }, []);
+
+
+  const getChatRooms = async (neeedUpdateCurrentRoom=true) => {
+    try {
+      const response = await messageService.getChatRoomofUser();
+      setChatRooms(response.data.chatrooms);
+      neeedUpdateCurrentRoom &&  setCurrentChatRoom(response.data.chatrooms[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="message-wrapper">
@@ -40,8 +51,7 @@ export const MessageComponent = ({ socket }) => {
           <ChatBoxRight 
           groupInfo={currentChatRoom} 
           socket={socket}
-          chatRooms={chatRooms}
-          
+        //   chatRooms={chatRooms}
           />
       </div>
     </div>

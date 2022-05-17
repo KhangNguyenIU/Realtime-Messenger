@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { stringCut } from 'utils';
 
 /**
  * @author
  * @function GroupMessage
  **/
+
+const MAX_LENTH_DISPLAY = 20
 
 export const GroupMessage = ({ groupInfo, handleClick }) => {
   // console.log('groupInfo',groupInfo)
@@ -19,7 +22,7 @@ export const GroupMessage = ({ groupInfo, handleClick }) => {
           <img src={groupInfo?.avatar} alt="group-avatar" />
         </div>
         <div className="group-info">
-          <div className='group-name'> {groupInfo.name}</div>
+          <div className='group-name'> {stringCut(groupInfo.name, MAX_LENTH_DISPLAY)}</div>
           <div className='group-last-message'>hello</div>
         </div>
       </div>
