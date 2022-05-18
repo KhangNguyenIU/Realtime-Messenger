@@ -16,9 +16,16 @@ export const MessageComponent = ({ socket }) => {
   useEffect(()=>{
     if(socket){
         socket.on('recieve-message', data =>{
-            console.log('recive message', data)
             getChatRooms(false)
         })
+
+        socket.on('new-message-notify', data=>{
+            console.log('reaload')
+            if(data.reload){
+                getChatRooms(false)
+            }
+        })
+
     }
   },[socket])
 

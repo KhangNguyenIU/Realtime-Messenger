@@ -12,6 +12,9 @@
         border-radius: 10px;
         transition: 300ms; 
         cursor: pointer;
+        &.is-not-readed{
+            background-color: $primary-gray;
+        }
         &:hover{
             background-color: $primary-gray;
         }

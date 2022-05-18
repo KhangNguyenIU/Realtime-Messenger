@@ -1,4 +1,3 @@
-import useEventListener from 'hooks/useEventListener';
 import useToggle from 'hooks/useToggle';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -21,22 +20,25 @@ whyDidYouRender(React, {
  **/
 
 export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
-    console.log("chatbos right render")
-  const user = useSelector((state) => state.auth.user);
-  const [textInput, setTextInput] = useState('');
-  const [messages, setMessages] = useState(null);
-  const [isTypingList, setIsTypingList] = useState([]);
-  const [toggle, handleOpenToggle, handleCloseToggle] = useToggle();
-  const [forwardMessage, setForwardMessage] = useState('');
-
+    const user = useSelector((state) => state.auth.user);
+    const [textInput, setTextInput] = useState('');
+    const [messages, setMessages] = useState(null);
+    const [isTypingList, setIsTypingList] = useState([]);
+    const [toggle, handleOpenToggle, handleCloseToggle] = useToggle();
+    const [forwardMessage, setForwardMessage] = useState('');
+    
   useEffect(() => {
     if (socket && groupInfo) {
+        //user identidy
+        socket.emit('identity', user._id)
+
       //join room on connect
       socket.emit('joinRoom', groupInfo._id);
 
       //receive list of user who are typing
       socket.on('user-typing', (fields) => {
         const { user: typingUser, isTyping } = fields;
+        // console.log("files",addObjectToUniqueArray(isTypingList, typingUser, isTyping))
         if (typingUser._id !== user._id) {
           setIsTypingList([
             ...addObjectToUniqueArray(isTypingList, typingUser, isTyping),
@@ -54,9 +56,6 @@ export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
         setMessages((state) => [...state, message]);
       });
 
-      socket.on('private-notification', data =>{
-          console.log("private-notification", data)
-      })
     }
   }, [socket]);
 

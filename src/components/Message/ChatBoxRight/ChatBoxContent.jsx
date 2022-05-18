@@ -10,6 +10,7 @@ import { TypingLoadingMessage } from './MessageText/TypingLoadingMessage';
 export const ChatBoxContent = ({ messages, isTypingList, handleOpenDialog ,setForwardMessage}) => {
   const chatBoxRef = useRef(null);
 
+
   useEffect(() => {
     chatBoxRef.current.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTypingList]);
@@ -30,7 +31,7 @@ export const ChatBoxContent = ({ messages, isTypingList, handleOpenDialog ,setFo
     
         <div ref={chatBoxRef} >
             {
-                !!isTypingList.length && ( <TypingLoadingMessage/>)
+                !!isTypingList.length && ( <TypingLoadingMessage isTypingList={isTypingList}/>)
             }
         </div>
       </div>

@@ -38,10 +38,10 @@ export const handleCommonResponse = (response, options = {}) => {
 
 export const addObjectToUniqueArray = (array, object, isTyping) => {
     let index = array.findIndex(item => item._id === object._id);
-    if(index === -1 && isTyping){
+    if (index === -1 && isTyping) {
         array.push(object);
     }
-    if(index !== -1 && !isTyping){
+    if (index !== -1 && !isTyping) {
         array.splice(index, 1);
     }
     return array
@@ -60,4 +60,15 @@ export const stringCut = (str, length) => {
         return str.substring(0, length) + '...';
     }
     return str;
+}
+
+export const detectWhoIsTyping = array => {
+
+    if (!array.length)
+        return ''
+
+    if (array.length === 1)
+        return array[0].username + ' is typing...'
+    else
+        return array[0].username + " and " + String(array.length - 1) + " more users " + ' are typing...'
 }
