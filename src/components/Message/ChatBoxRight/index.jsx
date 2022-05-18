@@ -98,6 +98,8 @@ export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
         isTypingList={isTypingList}
         handleOpenDialog={handleOpenToggle}
         setForwardMessage={setForwardMessage}
+        socket={socket}
+        groupInfo={groupInfo}
       />
 
       <ChatInput

@@ -27,7 +27,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:8000');
+    const newSocket = io("http://localhost:8000");
     setSocket(newSocket);
   }, [setSocket]);
 

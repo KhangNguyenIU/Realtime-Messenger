@@ -20,7 +20,14 @@ export const MessageComponent = ({ socket }) => {
         })
 
         socket.on('new-message-notify', data=>{
-            console.log('reaload')
+            console.log('reaload') 
+            if(data.reload){
+                getChatRooms(false)
+            }
+        })
+
+        socket.on('user-read-message', data=>{
+            console.log('reaload -new') 
             if(data.reload){
                 getChatRooms(false)
             }
