@@ -8,6 +8,7 @@ import { ChatBoxHeader } from './ChatBoxHeader';
 import { ForwardMessageModal } from './ForwardMessageModal';
 import { ChatInput } from './MessageText/ChatInput';
 import whyDidYouRender from '@welldone-software/why-did-you-render';
+import { TYPE_TEXT } from 'constants';
 
 whyDidYouRender(React, {
   onlyLogs: true,
@@ -20,17 +21,18 @@ whyDidYouRender(React, {
  **/
 
 export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
-    const user = useSelector((state) => state.auth.user);
-    const [textInput, setTextInput] = useState('');
-    const [messages, setMessages] = useState(null);
-    const [isTypingList, setIsTypingList] = useState([]);
-    const [toggle, handleOpenToggle, handleCloseToggle] = useToggle();
-    const [forwardMessage, setForwardMessage] = useState('');
-    
+  const user = useSelector((state) => state.auth.user);
+  const [textInput, setTextInput] = useState('');
+  const [messageType, setMessageType] = useState(TYPE_TEXT);
+  const [messages, setMessages] = useState(null);
+  const [isTypingList, setIsTypingList] = useState([]);
+  const [toggle, handleOpenToggle, handleCloseToggle] = useToggle();
+  const [forwardMessage, setForwardMessage] = useState({});
+
   useEffect(() => {
     if (socket && groupInfo) {
-        //user identidy
-        socket.emit('identity', user._id)
+      //user identidy
+      socket.emit('identity', user._id);
 
       //join room on connect
       socket.emit('joinRoom', groupInfo._id);
@@ -55,7 +57,6 @@ export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
         const { message } = fields;
         setMessages((state) => [...state, message]);
       });
-
     }
   }, [socket]);
 
@@ -78,14 +79,18 @@ export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
 
   const handleSendMessage = (e) => {
     e.preventDefault();
+    if (!textInput) return;
+
     let messagePacket = {
       chatRoomId: groupInfo._id,
       message: textInput,
       postedBy: user._id,
+      type: messageType,
     };
-
+    // console.log({ messagePacket }, messageType);
     socket.emit('send-message', messagePacket);
     socket.emit('user-stop-typing',{chatRoomId :groupInfo._id, user:user});
+    setMessageType(TYPE_TEXT);
     setTextInput('');
   };
 
@@ -100,6 +105,7 @@ export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
         setForwardMessage={setForwardMessage}
         socket={socket}
         groupInfo={groupInfo}
+        setMessages={setMessages}
       />
 
       <ChatInput
@@ -108,6 +114,8 @@ export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
         handleSendMessage={handleSendMessage}
         socket={socket}
         groupInfo={groupInfo}
+        setMessageType={setMessageType}
+        messageType={messageType}
       />
 
       <ForwardMessageModal

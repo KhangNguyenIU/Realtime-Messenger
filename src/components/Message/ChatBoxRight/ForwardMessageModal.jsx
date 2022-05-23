@@ -33,12 +33,16 @@ export const ForwardMessageModal = ({
   
   useEffect(() => {
     getChatRooms();
-  }, []);
+  }, [openDialog]);
+
 
   const getChatRooms = async () => {
     try {
       const response = await messageService.getChatRoomofUser();
-      setChatRooms([...response.data.chatrooms.filter((room) => room._id !== groupInfo._id)]);
+      console.log(response)
+      if(response){
+        setChatRooms([...response.data.chatrooms.filter((room) => room._id !== groupInfo._id)]);
+      }
     } catch (error) {
       //   console.log(error);
     }
@@ -81,10 +85,11 @@ const GroupForward = ({ room, socket, forwardMessage }) => {
     if (socket && forwardMessage !== '' && !isForwarded) {
       let messagePacket = {
         chatRoomId: room._id,
-        message: forwardMessage,
+        message: forwardMessage.message,
         postedBy: user._id,
+        type: forwardMessage.type
       };
-
+      console.log(messagePacket)
       socket.emit('send-message', messagePacket);
       setForwared(true);
     }

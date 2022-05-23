@@ -1,17 +1,13 @@
+import { LandingComponent } from 'components/Landing';
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
-const HomePage = () => {
-  const user = useSelector((state) => state.auth);
-  console.log('home', user);
+const HomePage = ({socket}) => {
+//   const user = useSelector((state) => state.auth);
   return (
-    <div>
-      <div>HomePage</div>
-      <img src="https://unsplash.com/photos/oJJ9WFl0q-I" alt="alt" />
-      <div>
-     
-      </div>
-    </div>
+    <React.Fragment>
+      <LandingComponent socket={socket}/>
+    </React.Fragment>
   );
 };
 

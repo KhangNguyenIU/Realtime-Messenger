@@ -56,6 +56,8 @@ export const removeObjectFromUniqueArray = (array, object) => {
 }
 
 export const stringCut = (str, length) => {
+    if(!str)
+    return ""
     if (str.length > length) {
         return str.substring(0, length) + '...';
     }

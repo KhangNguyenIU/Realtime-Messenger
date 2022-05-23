@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { Avatar, Tooltip } from '@mui/material';
 import useWindowSize from 'hooks/useWindowSize';
+import { TYPE_TEXT } from 'constants';
 /**
  * @author
  * @function MessageText
@@ -18,18 +19,28 @@ export const MessageText = ({
   const [tooltipPlace, setTooltipPlace] = useState('bottom');
   const { height: windowHeight } = useWindowSize();
 
+  //   console.log({message})
+  const prefix = useMemo(
+    () => (isMyMessage ? 'is-my-message' : ' '),
+    [isMyMessage]
+  );
   const classes = useMemo(() => {
     return {
-      messageContent: 'message-content ' + (isMyMessage && 'is-my-message'),
-      messagePart: 'message-part-dir ' + (isMyMessage && 'is-my-message'),
-      messageText: 'message-text ' + (isMyMessage && 'is-my-message'),
+      messageContent: 'message-content ' + prefix,
+      messagePart: 'message-part-dir ' + prefix,
+      messageText:
+        'message-text ' +
+        prefix +
+        (message?.isDeleted ? ' puff-in-center' : ''),
+      messageForwardButton: 'message-forward ' + prefix,
+      messageImage: 'message-image ' + prefix,
     };
-  }, [isMyMessage]);
+  }, [isMyMessage, message]);
 
   //Click forward button
   const handleClick = () => {
     handleOpenDialog();
-    setForwardMessage(message.message);
+    setForwardMessage({message:message.message, type: message.type});
   };
 
   //Mouse move over the message then appear the forward button
@@ -61,11 +72,18 @@ export const MessageText = ({
         )}
 
         <div className="message">
-          <div className={classes.messageText}>{message.message}</div>
+          {/* <div className={classes.messageText}></div> */}
+          {message.type === TYPE_TEXT ? (
+            <div className={classes.messageText}>{message.message}</div>
+          ) : (
+            <div className={classes.messageImage}>
+                <img src={message.message} alt="message" />
+            </div>
+          )}
         </div>
       </div>
       <div
-        className="message-forward"
+        className={classes.messageForwardButton}
         ref={messageRef}
         onClick={handleClick}
         hidden

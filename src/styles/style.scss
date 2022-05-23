@@ -1,8 +1,11 @@
 @import "abstract/_variables.scss";
+@import "abstract/_animation.scss";
 @import "components/message";
 @import "components/message/ChatBox";
 @import "components/message/ChatGroup";
 @import "components/message/TypingMessage";
+@import "components/home.scss";
+
 *{
     margin: 0;
     padding: 0;

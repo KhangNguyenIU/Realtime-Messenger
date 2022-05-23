@@ -1,14 +1,34 @@
 $primary-pink: #E68585;
 
 $primary-gray: #3E4042;
-$primary-gray-light: #A0BCC2;
+$primary-gray-light: #7F8487;
 
 $secondary-gray:#e4e6eb;
-$secondary-gray-light: #b0b3b8;
+$secondary-gray-light: #eeeff6;
 
 $primary-black-screen: #242526;
 
-$primary-purple-dark: #1b1a21;
-$primary-purple: #7754b0;
-$secondary-purple-dark: #2a2d3e;
+$primary-purple-dark: #1b1a2e;
+$primary-purple: #7754b2;
+// $secondary-purple-dark: #2a2d3e;
+$secondary-purple-dark: #343142;
+
+$color: (
+	typography: (
+		1: #FFFFFF,
+		2: #8A94A7,
+		3: #3B404C
+	),
+	bg: (
+		1: #15181D,
+		2: #1D2026,
+		3: #242830,
+		4: #2C3039
+	),
+	primary: (
+		1: #0270D7,
+		2: #0F8AFD,
+		3: #0256A4
+ 	)
+);
 

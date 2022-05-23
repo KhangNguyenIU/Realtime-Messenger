@@ -1,67 +1,146 @@
+@import '../../abstract/mixins.scss';
 
-@import "../../abstract/mixins.scss";
+.left-wrapper {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  @include respond(xs) {
+    padding: 0;
+  }
 
-.wrapper{
-    padding:0 1rem .2rem;
-    width:100%;
+  .group-search {
+    flex :1 1 auto;
+    padding: 0.8rem 0.5rem;
+    background-color: $secondary-purple-dark;
+    border-radius: 10px;
+    margin-bottom: 1rem;
     display: flex;
-    height: 70px;
-    .group-chat-wrapper{
-        display: flex;
+    align-items: center;
+    @include respond(xs){
+        justify-content: center;
+        // margin-top: 2rem;
+        padding: .5rem;
+        border-radius: 20px;
+        background-color: inherit;
+    }
+    input {
+      border: none;
+      outline: none;
+      background-color: transparent;
+      color: $primary-purple;
+      font-size: 1.2rem;
+      padding: 0 0.5rem;
+      flex: 1;
+      font-size: 1rem;
+      @include respond(xs){
+        visibility: hidden;
+        display: none;
+      }
+    }
+
+    .icon {
+      color: $secondary-gray;
+      font-size: 1.5rem;
+    }
+  }
+
+  .message-divider {
+    flex :1 1 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $primary-gray;
+    margin-bottom: 1rem;
+    @include respond(xs){
+        display: none;
+    }
+    .message-divider-text {
+      display: flex;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+      .icon {
+        font-size: 1rem;
+        margin-left: 0.5rem;
+      }
+    }
+
+    .restart-icon {
+      cursor: pointer;
+      transform: rotate(45deg);
+    }
+  }
+
+  .group-list{
+      flex :1 1 auto;
+      height: 100%;
+    .wrapper {
+        // padding:0 1rem ;
         width: 100%;
-        border-radius: 10px;
-        transition: 300ms; 
-        cursor: pointer;
-        &.is-not-readed{
+        display: flex;
+        height: 70px;
+        .group-chat-wrapper {
+          display: flex;
+          width: 100%;
+          border-radius: 10px;
+          transition: 300ms;
+          cursor: pointer;
+          &.is-not-readed {
             background-color: $primary-gray;
-        }
-        &:hover{
+          }
+          &:hover {
             background-color: $primary-gray;
-        }
-        .img-box{
+          }
+          .img-box {
             flex-basis: 70px;
             display: flex;
             justify-content: center;
             align-items: center;
-            @include respond(md){
-                flex-basis: 100%;
-            }
-            img{
-                width: 60px; 
-                height: 60px;
-                border-radius: 50%;
-                @include respond(md){
-                    width: 60px; 
-                    height: 60px;
-                }
-            }
-        }
+            // @include respond(md) {
+            //   flex-basis: 100%;
+            // }
+          }
     
-        .group-info{
+          .group-info {
             // flex-basis: 80%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             color: white;
-            font-family: 'Segoe UI', sans-serif;
-            font-size:12px;
+            font-family: 'Arial', sans-serif;
+            font-size: 10px;
             line-height: 15px;
-            @include respond(md){
-                display: none;
-            }
+            width:100%;
+            padding: 0 1rem;
 
-            .group-name{
-                font-size: 16px;
-                font-weight: 400; 
-                margin-bottom: 6px;
-                color:$secondary-gray;
+            @include respond(xs) {
+                //   padding: 0 .5rem;
+                  display: none;
+                }
+            @include respond(sm) {
+              padding: 0 .5rem;
             }
-
-            .group-last-message{ 
-                font-size: 12px;
-                color: $secondary-gray-light;
-            }
-        }
-    }
     
+            .group-name {
+                width: 100%;
+              font-size: 14px;
+              font-weight: 400;
+              margin-bottom: 5px;
+              color: $secondary-gray;
+              display: flex;
+              justify-content: space-between;
+    
+              .time-text{
+                  color :$primary-gray-light;
+                  font-size: 12px;
+              }
+            }
+    
+            .group-last-message {
+              font-size: 12px;
+              color: $secondary-gray-light;
+            }
+          }
+        }
+      }
+  }
 }

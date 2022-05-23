@@ -1,4 +1,7 @@
+import { USER_ON_TYPING_SOUND } from 'constants';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { playSound, stopSound } from 'slices/Common/sound.slice';
 import { detectWhoIsTyping } from 'utils';
 
 /**
@@ -7,7 +10,12 @@ import { detectWhoIsTyping } from 'utils';
  **/
 
 export const TypingLoadingMessage = ({isTypingList}) => {
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(playSound({sound: USER_ON_TYPING_SOUND, play: true, playInLoop: true}))
 
+        return ()=> dispatch(stopSound())
+    },[])
 
   return (
     <React.Fragment>

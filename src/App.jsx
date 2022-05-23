@@ -9,6 +9,7 @@ import { MessagePage } from 'pages/Message/MessagePage';
 import PrivateRoute from 'components/Auth/PrivateRoute';
 import { Notification } from 'components/Common/Notification';
 import { AuthPage } from './pages/AuthPage';
+import { GlobalSound } from 'components/Common/Sound';
 
 function App() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="auth" element={<AuthPage />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage socket={socket}/>} />
           <Route
             path="/message"
             element={
@@ -51,6 +52,7 @@ function App() {
 
       {/* HOC component*/}
       <Notification />
+      <GlobalSound/>
     </>
   );
 }
