@@ -14,8 +14,9 @@ import Badge from '@mui/material/Badge';
  * @function ChatSummary
  **/
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
+const StyledBadge =styled(Badge)(({ theme },isonline) => ({
   '& .MuiBadge-badge': {
+    display: isonline === "true" ? 'flex' : 'none',
     backgroundColor: '#44b700',
     color: '#44b700',
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
@@ -47,8 +48,9 @@ export const ChatSummary = ({ groupInfo }) => {
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    console.log({ groupInfo });
+    console.log(groupInfo?.participants);
   });
+
   useEffect(() => {
     if (galleryRef.current) {
       setDimension({
@@ -106,7 +108,8 @@ export const ChatSummary = ({ groupInfo }) => {
                   overlap="circular"
                   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                   variant="dot"
-              color='secondary'
+                  color="secondary"
+                  isonline={member?.isOnline.toString()}
                 >
                   <Avatar
                     sx={{ width: 36, height: 36 }}
@@ -119,7 +122,7 @@ export const ChatSummary = ({ groupInfo }) => {
               <div>
                 <span className="user-name">{member?.username}</span>
                 <span className="user-status">
-                  {member?.status || 'Offline'}
+                  {member?.isOnline ? 'Online' : 'Offline'}
                 </span>
               </div>
             </div>
