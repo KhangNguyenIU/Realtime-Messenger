@@ -28,7 +28,12 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL);
+    const newSocket = io(process.env.REACT_APP_SOCKET_URL,{
+        withCredentials: true,
+        extraHeaders: {
+            "secretHeader": "secret value"
+        }
+    });
     setSocket(newSocket);
   }, [setSocket]);
 
