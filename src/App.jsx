@@ -28,16 +28,18 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL, {
-      withCredentials: true,
-      transportOptions: {
-        polling: {
-          extraHeaders: {
-            secretHeader: 'abcd',
-          },
-        },
-      },
-    });
+    const newSocket = io(process.env.REACT_APP_SOCKET_URL
+    //     , {
+    //   withCredentials: true,
+    //   transportOptions: {
+    //     polling: {
+    //       extraHeaders: {
+    //         secretHeader: 'abcd',
+    //       },
+    //     },
+    //   },
+    // }
+    );
     setSocket(newSocket);
   }, [setSocket]);
 
