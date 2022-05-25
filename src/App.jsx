@@ -28,11 +28,15 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL,{
-        withCredentials: true,
-        extraHeaders: {
-            "secretHeader": "secret value"
-        }
+    const newSocket = io(process.env.REACT_APP_SOCKET_URL, {
+      withCredentials: true,
+      transportOptions: {
+        polling: {
+          extraHeaders: {
+            secretHeader: 'abcd',
+          },
+        },
+      },
     });
     setSocket(newSocket);
   }, [setSocket]);
@@ -43,12 +47,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="auth" element={<AuthPage />} />
-          <Route path="/" element={<HomePage socket={socket}/>} />
+          <Route path="/" element={<HomePage socket={socket} />} />
           <Route
             path="/message"
             element={
               <PrivateRoute user={user}>
-                <MessagePage  socket={socket} />
+                <MessagePage socket={socket} />
               </PrivateRoute>
             }
           />
@@ -57,7 +61,7 @@ function App() {
 
       {/* HOC component*/}
       <Notification />
-      <GlobalSound/>
+      <GlobalSound />
     </>
   );
 }
