@@ -29,18 +29,13 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL, { transports:['websocket', 'polling', 'flashsocket'] }
-    //     , {
-    //   withCredentials: true,
-    //   transportOptions: {
-    //     polling: {
-    //       extraHeaders: {
-    //         secretHeader: 'abcd',
-    //       },
-    //     },
-    //   },
-    // }
-    );
+    const connectionOptions = {
+        "force new connection": true,
+        reconnectionAttempts: "Infinity",
+        timeout: 10000,
+        transports: ["websocket"],
+      };
+    const newSocket = io(process.env.REACT_APP_SOCKET_URL, connectionOptions);
     setSocket(newSocket);
   }, [setSocket]);
 
