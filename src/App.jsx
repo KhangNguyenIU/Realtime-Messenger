@@ -17,6 +17,7 @@ function App() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
+      console.log(process.env.REACT_APP_API_URL)
     if (localStorage.getItem('token')) {
       try {
         const action = authenticateUser();
@@ -28,7 +29,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL
+    const newSocket = io(process.env.REACT_APP_SOCKET_URL, { transports:['websocket', 'polling', 'flashsocket'] }
     //     , {
     //   withCredentials: true,
     //   transportOptions: {
