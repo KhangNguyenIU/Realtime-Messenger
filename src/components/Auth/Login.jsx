@@ -17,12 +17,12 @@ import { signinUser } from "slices/Auth/auths.slice";
 
 const theme = createTheme();
 
-export default function Login() {
+export default function Login({setSwitchAuth}) {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState({
-    email: "heomap@gmail.com",
-    password: "Qwerty123",
+    email: "",
+    password: "",
   });
 
   const handleChangeValue = (field) => {
@@ -136,7 +136,7 @@ export default function Login() {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="#" variant="body2" onClick={()=>setSwitchAuth(1)}>
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>

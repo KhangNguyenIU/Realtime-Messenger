@@ -1,3 +1,5 @@
+@import '../abstract/mixins.scss';
+
 .main {
   width: 100%;
   height: 100vh;
@@ -5,6 +7,10 @@
   background: #1d2026;
   position: relative;
   display: flex;
+  @include respond(sm) {
+    flex-direction: column;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -27,17 +33,90 @@
   .left {
     flex-basis: 50%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .hero {
+      max-width: 60%;
+      @include respond(sm) {
+        margin-top: 100px;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .hero-title {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 1rem;
+        font-family: 'Lora', sans;
+
+        @include respond(sm) {
+          text-align: center;
+          font-size: 2rem;
+          max-width: 80%;
+        }
+      }
+
+      .hero-content {
+        font-size: 1.5rem;
+        color: $primary-gray-light;
+        font-family: 'Segoe UI', sans;
+        margin-bottom: 1rem;
+        @include respond(sm) {
+          font-size: 1.2rem;
+          max-width: 80%;
+          text-align: center;
+        }
+      }
+
+      div {
+        .button {
+          padding: 1rem 1.2rem;
+          font-size: 1rem;
+          background-color: $primary-blue;
+          color: white;
+          text-transform: uppercase;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: 150ms;
+
+          &:hover {
+            box-shadow: #00bffb;
+          }
+        }
+
+        div{
+            .navigate-tool{
+                font-size: 3rem;
+                font-size: white;
+                cursor: pointer;
+            }
+        }
+      }
+    }
+    @include respond(sm) {
+      flex-basis: 100%;
+      height: auto;
+    }
   }
 
   .right {
     flex-basis: 50%;
-    margin-top: -100px ;
+    // margin-top: -100px ;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-image: url('../../../public/hero-back-illustration.svg');
-
+    @include respond(sm) {
+      flex-basis: 100%;
+      height: auto;
+    }
     .abstract {
       width: 400px;
       height: 400px;
@@ -56,14 +135,27 @@
         top: 41.9%;
         width: 28.03%;
         height: 37.37%;
-        background: linear-gradient(to left top, #00BFFB, rgba(#00BFFB, 0));
+        background: linear-gradient(to left top, #00bffb, rgba(#00bffb, 0));
         transform: rotateZ(45deg);
-    
+
         &::before {
-            background: linear-gradient(to left, #15181D , #15181D);
-            transform: rotateZ(45deg) scale(1.5);
+          background: linear-gradient(to left, #15181d, #15181d);
+          transform: rotateZ(45deg) scale(1.5);
         }
-    }
+      }
+      .hero-figure-box-02 {
+        left: 50%;
+        top: 41.9%;
+        width: 40%; 
+        height: 90%;
+        background: linear-gradient(to left top, #00bffb, rgba(#00bffb, 0));
+        transform: rotateZ(45deg);
+
+        &::before {
+          background: linear-gradient(to left, #15181d, #15181d);
+          transform: rotateZ(45deg) scale(1.5);
+        }
+      }
     }
   }
 }

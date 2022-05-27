@@ -17,7 +17,6 @@ function App() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-      console.log(process.env.REACT_APP_API_URL)
     if (localStorage.getItem('token')) {
       try {
         const action = authenticateUser();
@@ -44,12 +43,12 @@ function App() {
       {/* Routes */}
       <BrowserRouter>
         <Routes>
-          <Route path="auth" element={<AuthPage />} />
+          <Route path="auth" element={<PrivateRoute condition={false} redirect='/'><AuthPage /></PrivateRoute>} />
           <Route path="/" element={<HomePage socket={socket} />} />
           <Route
             path="/message"
             element={
-              <PrivateRoute user={user}>
+              <PrivateRoute condition={true}>
                 <MessagePage socket={socket} />
               </PrivateRoute>
             }

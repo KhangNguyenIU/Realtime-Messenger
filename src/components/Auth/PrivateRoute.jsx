@@ -9,14 +9,14 @@ import { useSelector } from 'react-redux';
  * @function PrivateRoute
  **/
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, condition= true, redirect='/auth' }) => {
     const navigate = useNavigate()
 
     useLayoutEffect(() => {
         (async()=>{
             const auth = await isAuthenticated()
-            if(!auth){
-                navigate('/auth')
+            if(!auth === condition){
+                navigate(redirect)
             }
         })()
     }, [navigate]);
