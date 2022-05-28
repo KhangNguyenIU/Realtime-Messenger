@@ -4,24 +4,26 @@
   padding: 0 20px;
   display: flex;
   flex-direction: column;
+  max-height: 100vh;
+  overflow: hidden;
   @include respond(xs) {
     padding: 0;
   }
 
   .group-search {
-    flex :1 1 auto;
+    flex-basis: 40px;
     padding: 0.8rem 0.5rem;
     background-color: $secondary-purple-dark;
     border-radius: 10px;
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    @include respond(xs){
-        justify-content: center;
-        // margin-top: 2rem;
-        padding: .5rem;
-        border-radius: 20px;
-        background-color: inherit;
+    @include respond(xs) {
+      justify-content: center;
+      // margin-top: 2rem;
+      padding: 0.5rem;
+      border-radius: 20px;
+      background-color: inherit;
     }
     input {
       border: none;
@@ -32,7 +34,7 @@
       padding: 0 0.5rem;
       flex: 1;
       font-size: 1rem;
-      @include respond(xs){
+      @include respond(xs) {
         visibility: hidden;
         display: none;
       }
@@ -45,15 +47,18 @@
   }
 
   .message-divider {
-    flex :1 1 auto;
+    flex-basis: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: $primary-gray;
-    margin-bottom: 1rem;
-    @include respond(xs){
-        display: none;
+    margin-bottom: 10px;
+
+    @include respond(xs) {
+      justify-content: center;
+      align-items: center;
     }
+
     .message-divider-text {
       display: flex;
       align-items: center;
@@ -61,86 +66,95 @@
       .icon {
         font-size: 1rem;
         margin-left: 0.5rem;
+        @include respond(xs) {
+          display: none;
+        }
       }
     }
 
     .restart-icon {
       cursor: pointer;
       transform: rotate(45deg);
+      @include respond(xs) {
+        display: none;
+      }
     }
   }
 
-  .group-list{
-      flex :1 1 auto;
-      height: 100%;
-    .wrapper {
-        // padding:0 1rem ;
-        width: 100%;
-        display: flex;
-        height: 70px;
-        .group-chat-wrapper {
-          display: flex;
-          width: 100%;
-          border-radius: 10px;
-          transition: 300ms;
-          cursor: pointer;
-          &.is-not-readed {
-            background-color: $primary-gray;
-          }
-          &:hover {
-            background-color: $primary-gray;
-          }
-          .img-box {
-            flex-basis: 70px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            // @include respond(md) {
-            //   flex-basis: 100%;
-            // }
-          }
-    
-          .group-info {
-            // flex-basis: 80%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            font-size: 10px;
-            line-height: 15px;
-            width:100%;
-            padding: 0 1rem;
+  .group-list {
+    flex-basis: auto;
+    overflow-y: scroll;
 
-            @include respond(xs) {
-                //   padding: 0 .5rem;
-                  display: none;
-                }
-            @include respond(sm) {
-              padding: 0 .5rem;
-            }
-    
-            .group-name {
-                width: 100%;
-              font-size: 14px;
-              font-weight: 400;
-              margin-bottom: 5px;
-              color: $secondary-gray;
-              display: flex;
-              justify-content: space-between;
-    
-              .time-text{
-                  color :$primary-gray-light;
-                  font-size: 12px;
-              }
-            }
-    
-            .group-last-message {
-              font-size: 12px;
-              color: $secondary-gray-light;
+    .wrapper {
+      width: 100%;
+      display: flex;
+      height: 70px;
+      .group-chat-wrapper {
+        display: flex;
+        width: 100%;
+        border-radius: 10px;
+        transition: 300ms;
+        cursor: pointer;
+        &.is-not-readed {
+          background-color: $primary-gray;
+        }
+        &:hover {
+          background-color: $primary-gray;
+        }
+        .img-box {
+          flex-basis: 70px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .group-info {
+          // flex-basis: 80%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          color: white;
+          font-family: 'Arial', sans-serif;
+          font-size: 10px;
+          line-height: 15px;
+          width: 100%;
+          padding: 0 1rem;
+
+          @include respond(xs) {
+            //   padding: 0 .5rem;
+            display: none;
+          }
+          @include respond(sm) {
+            padding: 0 0.5rem;
+          }
+
+          .group-name {
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 5px;
+            color: $secondary-gray;
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .group-last-message {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: $secondary-gray-light;
+            .time-text {
+              color: $primary-gray-light;
+              font-size: 11px;
             }
           }
         }
       }
+    }
+  }
+
+  .button-tool {
+    color: white;
+    flex-basis: 50px;
   }
 }

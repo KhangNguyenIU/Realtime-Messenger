@@ -47,9 +47,9 @@ export const ChatSummary = ({ groupInfo }) => {
   const galleryRef = useRef(null);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
-  useEffect(() => {
-    console.log(groupInfo?.participants);
-  });
+//   useEffect(() => {
+//     console.log(groupInfo?.participants);
+//   });
 
   useEffect(() => {
     if (galleryRef.current) {

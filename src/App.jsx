@@ -10,6 +10,7 @@ import PrivateRoute from 'components/Auth/PrivateRoute';
 import { Notification } from 'components/Common/Notification';
 import { AuthPage } from './pages/AuthPage';
 import { GlobalSound } from 'components/Common/Sound';
+import Loading from 'components/Common/Loading';
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function App() {
       {/* HOC component*/}
       <Notification />
       <GlobalSound />
+      <Loading/>
     </>
   );
 }

@@ -39,7 +39,7 @@ export const ForwardMessageModal = ({
   const getChatRooms = async () => {
     try {
       const response = await messageService.getChatRoomofUser();
-      console.log(response)
+    //   console.log(response)
       if(response){
         setChatRooms([...response.data.chatrooms.filter((room) => room._id !== groupInfo._id)]);
       }
@@ -89,7 +89,7 @@ const GroupForward = ({ room, socket, forwardMessage }) => {
         postedBy: user._id,
         type: forwardMessage.type
       };
-      console.log(messagePacket)
+    //   console.log(messagePacket)
       socket.emit('send-message', messagePacket);
       setForwared(true);
     }

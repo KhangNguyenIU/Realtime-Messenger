@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { stringCut } from 'utils';
 import { useSelector } from 'react-redux';
@@ -46,9 +47,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 export const GroupMessage = ({ groupInfo, handleClick, socket }) => {
   const user = useSelector((state) => state.auth.user);
   const [isReaded, setIsReaded] = useState(true);
-  console.log(groupInfo);
+  const date = moment();
   useEffect(() => {
-    //default case when data is not already loaded
+    // *default case when data is not already loaded
     if (!groupInfo?.messages[0]?.readByRecipients) {
       setIsReaded(true);
       return;
@@ -89,9 +90,9 @@ export const GroupMessage = ({ groupInfo, handleClick, socket }) => {
             <span className="name-text">
               {stringCut(groupInfo.name, MAX_LENTH_DISPLAY)}
             </span>
-            <span className="time-text">12h20</span>
+          
           </div>
-      
+
           <DisplayMessageContent message={groupInfo?.messages[0]} />
         </div>
       </div>
@@ -101,7 +102,6 @@ export const GroupMessage = ({ groupInfo, handleClick, socket }) => {
 
 // *This compoent diplay message content due to the type of message
 const DisplayMessageContent = ({ message }) => {
-  // console.log(message)
   const mess = useMemo(() => {
     if (message?.type === TYPE_TEXT) {
       return stringCut(message?.message, MAX_LENTH_DISPLAY);
@@ -111,7 +111,16 @@ const DisplayMessageContent = ({ message }) => {
     }
   }, [message]);
 
-  return <div className="group-last-message">{mess}</div>;
+  return (
+    <div className="group-last-message">
+      <div>{mess}</div>
+      <span className="time-text">
+        {
+            message?.createdAt && moment(message?.createdAt).fromNow()
+        }
+      </span>
+    </div>
+  );
 };
 
 GroupMessage.propTypes = {

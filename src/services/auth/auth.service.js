@@ -18,6 +18,7 @@ const authService = {
     localStorage.removeItem('token');
     return true
   },
+  
 };
 
 export default authService;

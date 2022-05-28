@@ -18,12 +18,14 @@ import { NEW_MESSAGE_SOUND } from 'constants';
 export const MessageComponent = ({ socket }) => {
   const [chatRooms, setChatRooms] = useState([]);
   const [currentChatRoom, setCurrentChatRoom] = useState(null);
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     if (socket) {
       socket.on('recieve-message', (data) => {
         getChatRooms(false);
-        dispatch(playSound({ sound: NEW_MESSAGE_SOUND, play: true, playInLoop: false }))
+        dispatch(
+          playSound({ sound: NEW_MESSAGE_SOUND, play: true, playInLoop: false })
+        );
       });
 
       socket.on('new-message-notify', (data) => {
@@ -48,7 +50,6 @@ const dispatch = useDispatch()
   const getChatRooms = async (neeedUpdateCurrentRoom = true) => {
     try {
       const response = await messageService.getChatRoomofUser();
-      console.log(response);
       setChatRooms(response.data.chatrooms);
       neeedUpdateCurrentRoom && setCurrentChatRoom(response.data.chatrooms[0]);
     } catch (error) {
@@ -64,6 +65,7 @@ const dispatch = useDispatch()
           currentChatRoom={currentChatRoom}
           socket={socket}
           setCurrentChatRoom={setCurrentChatRoom}
+          getChatRooms={getChatRooms}
         />
       </div>
 
@@ -76,8 +78,7 @@ const dispatch = useDispatch()
       </div>
 
       <div className="message-summary-right">
-        <ChatSummary 
-        groupInfo={currentChatRoom}/>
+        <ChatSummary groupInfo={currentChatRoom} />
       </div>
     </div>
   );

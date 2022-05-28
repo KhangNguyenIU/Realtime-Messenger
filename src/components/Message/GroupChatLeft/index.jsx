@@ -2,7 +2,10 @@ import React from 'react';
 import { GroupMessage } from './GroupMessage';
 import SearchIcon from '@mui/icons-material/Search';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { IconButton, Tooltip } from '@mui/material';
+import { Add } from '@mui/icons-material';
+import useToggle from 'hooks/useToggle';
+import { CreateNewChatModal } from './CreateNewChatModal';
 /**
  * @author
  * @function GroupMessageList
@@ -13,9 +16,11 @@ export const GroupMessageList = ({
   setCurrentChatRoom,
   currentChatRoom,
   socket,
+  getChatRooms,
 }) => {
-    
-  const handleClick = (chatRoom) => {
+  const [toggle, handleOpenToggle, handleCloseToggle, toggleFn] = useToggle();
+
+  const handleClickListItem = (chatRoom) => {
     if (socket && currentChatRoom) {
       socket.emit('leaveRoom', currentChatRoom._id);
     }
@@ -24,31 +29,50 @@ export const GroupMessageList = ({
 
   return (
     <React.Fragment>
-      <div className='left-wrapper'>
+      <div className="left-wrapper">
         <div className="group-search">
-          <SearchIcon className='icon'/>
-          <input type="text" placeholder='Search...'/>
+          <SearchIcon className="icon" />
+          <input type="text" placeholder="Search..." />
         </div>
 
         <div className="message-divider">
-            <div className="message-divider-text">
-                <span>Messages</span>
-                <KeyboardArrowDownIcon className='icon'/>
+          <div className="message-divider-text">
+            <div>
+              <Tooltip placement="right" title="Create new conversation">
+                <IconButton onClick={handleOpenToggle}>
+                  <Add sx={{ color: 'white' }} />
+                </IconButton>
+              </Tooltip>
             </div>
-            <RestartAltIcon className='restart-icon'/>
+            {/* <KeyboardArrowDownIcon className='icon'/> */}
+          </div>
+          <RestartAltIcon className="restart-icon" />
         </div>
-        <div className='group-list'>
-          {!!chatRooms.length &&
-            chatRooms.map((room, index) => (
-              <GroupMessage
-                socket={socket}
-                key={index}
-                groupInfo={room}
-                handleClick={handleClick}
-              />
-            ))}
+        <div className="group-list">
+          <div>
+            {!!chatRooms.length &&
+              chatRooms.map((room, index) => (
+                <GroupMessage
+                  socket={socket}
+                  key={index}
+                  groupInfo={room}
+                  handleClick={handleClickListItem}
+                />
+              ))}
+          </div>
+ 
         </div>
+
+
       </div>
+
+      {toggle && (
+        <CreateNewChatModal
+          handleCloseDialog={handleCloseToggle}
+          openDialog={toggle}
+          getChatRooms={getChatRooms}
+        />
+      )}
     </React.Fragment>
   );
 };
