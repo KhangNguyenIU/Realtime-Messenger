@@ -11,6 +11,7 @@ import { Notification } from 'components/Common/Notification';
 import { AuthPage } from './pages/AuthPage';
 import { GlobalSound } from 'components/Common/Sound';
 import Loading from 'components/Common/Loading';
+import { User } from 'components/User';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App() {
         <Routes>
           <Route path="auth" element={<PrivateRoute condition={false} redirect='/'><AuthPage /></PrivateRoute>} />
           <Route path="/" element={<HomePage socket={socket} />} />
+          <Route path="/profile/:id" element={<User  />} />
           <Route
             path="/message"
             element={
