@@ -128,7 +128,7 @@
               border-radius: 15px;
               background-color: $secondary-purple-dark;
               color: $secondary-gray;
-            
+
               &.is-my-message {
                 background-color: $primary-purple;
                 color: $secondary-gray;
@@ -145,17 +145,17 @@
               }
             }
 
-            .message-image{
-                img {
-                    width: 15rem;
-                    height: 15rem;
-                    border-radius: 20px;
-                    object-fit: cover;
-                  }
+            .message-image {
+              img {
+                width: 15rem;
+                height: 15rem;
+                border-radius: 20px;
+                object-fit: cover;
+              }
 
-                &.is-my-message{
-                    margin-right: 0.5rem;
-                }
+              &.is-my-message {
+                margin-right: 0.5rem;
+              }
             }
           }
         }
@@ -256,20 +256,22 @@
     }
 
     .tool-part {
-      flex-basis: 7rem;
+      flex-basis: 15rem;
       font-family: 'Arial', sans;
-      .tool-part-header {
-        display: flex;
-        justify-content: space-between;
-        color: $primary-gray-light;
-        align-items: center;
-
-        & :last-child {
-          font-size: 1.2rem;
-          cursor: pointer;
-        }
+      height: '100%';
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: $primary-gray-light;
+      align-items: center;
+      width: 100%;
+      .avatar {
+        margin-bottom: 0.5rem;
       }
-
+      .group-name {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
       .tool-buttons {
         display: flex;
         margin-top: 1rem;
@@ -282,7 +284,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          border-radius: 10px;
+          border-radius: 50%;
           cursor: pointer;
         }
       }
@@ -334,53 +336,74 @@
       }
     }
 
-    .members{
-        flex-basis: 40%;
-        height: 100px;
-        width: 100%;
-        .members-header{
-            color: $secondary-gray;
-            font-size: 1rem;
-            font-family: 'Arial', sans;
+    .members {
+      flex-basis: 40%;
+      height: 100px;
+      width: 100%;
+
+      .members-header {
+        color: $secondary-gray;
+        font-size: 1rem;
+        font-family: 'Arial', sans;
+      }
+      .members-list {
+        height: 100%;
+        overflow-y: scroll;
+        margin-top: 1rem;
+        max-height: 200px;
+        &::-webkit-scrollbar {
+          display: none;
         }
-        .members-list{
-            height: 100%;
-            overflow-y: scroll;
-            margin-top: 1rem;
-            &::-webkit-scrollbar {
-                display: none;
-              }
 
-            .member-item{
-                display: flex;
-                align-items: center;
-                margin-bottom: 0.5rem;
-                padding: .2rem 0;
-                border-radius: 10px;
-                cursor: pointer;
-                transition: 200ms;
+        .member-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.5rem;
+          padding: 0.2rem 0;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: 200ms;
 
-                div{
-                    display: flex;
-                    flex-direction: column;
-                    margin-left: .5rem;
-                    .user-name{
-                        color: $secondary-gray;
-                        font-size: 1rem;
-                    }
-    
-                    .user-status{
-                        color :$primary-gray-light;
-                        font-style: italic;
-                        font-size: 0.8rem;
-                    }
-                }
-                &:hover{
-                    background-color: $secondary-purple-dark;
-                }
+          div {
+            display: flex;
+            flex-direction: column;
+            margin-left: 0.5rem;
+            .user-name {
+              color: $secondary-gray;
+              font-size: 1rem;
             }
+
+            .user-status {
+              color: $primary-gray-light;
+              font-style: italic;
+              font-size: 0.8rem;
+            }
+          }
+          &:hover {
+            background-color: $secondary-purple-dark;
+          }
+        }
+      }
+    }
+  }
+
+  .function-list {
+    width: 100%;
+    .function-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: .5rem 0 ;
+      color: #FF5D5D;
+      cursor: pointer;
+        &:not(:last-child){
+            border-bottom: 1px solid $primary-gray;
+            color: white;
+
         }
     }
+  
   }
 }
 

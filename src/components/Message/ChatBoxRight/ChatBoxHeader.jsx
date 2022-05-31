@@ -16,7 +16,7 @@ export const ChatBoxHeader = ({ groupInfo }) => {
         <Avatar alt="group-avater" src={groupInfo?.avatar} />
         <div className="group-header-info">
           <span className='group-name'>{groupInfo?.name}</span>
-          <span className='group-member-numbers'>9 members</span>
+          <span className='group-member-numbers'>{groupInfo?.participants.length} Members</span>
         </div>
       </div>
       <div className="chatbox-tool-info">

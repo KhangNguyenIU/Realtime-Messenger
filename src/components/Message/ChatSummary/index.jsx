@@ -6,17 +6,21 @@ import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { Gallery } from './Gallery';
-import { Avatar, Stack } from '@mui/material';
+import { Avatar, Stack, Switch } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
 import Badge from '@mui/material/Badge';
+import { FunctionList } from './FunctionList';
 /**
  * @author
  * @function ChatSummary
  **/
 
-const StyledBadge =styled(Badge)(({ theme },isonline) => ({
+const StyledBadge = styled(Badge)(({ theme }, isonline) => ({
   '& .MuiBadge-badge': {
-    display: isonline === "true" ? 'flex' : 'none',
+    display: isonline === 'true' ? 'flex' : 'none',
     backgroundColor: '#44b700',
     color: '#44b700',
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
@@ -47,9 +51,9 @@ export const ChatSummary = ({ groupInfo }) => {
   const galleryRef = useRef(null);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
-//   useEffect(() => {
-//     console.log(groupInfo?.participants);
-//   });
+  //   useEffect(() => {
+  //     console.log(groupInfo?.participants);
+  //   });
 
   useEffect(() => {
     if (galleryRef.current) {
@@ -59,13 +63,19 @@ export const ChatSummary = ({ groupInfo }) => {
       });
     }
   }, []);
+
   return (
     <React.Fragment>
       <div className="tool-part">
-        <div className="tool-part-header">
-          <span>Chat detail</span>
-          <CloseIcon />
-        </div>
+        {/* <div> */}
+        <Avatar
+          className="avatar"
+          src={groupInfo?.avatar}
+          alt="group-avatar"
+          sx={{ width: 100, height: 100 }}
+        />
+        <p className="group-name">{groupInfo?.name}</p>
+        {/* </div> */}
         <div className="tool-buttons">
           <div>
             <NotificationsNoneOutlinedIcon />
@@ -85,7 +95,7 @@ export const ChatSummary = ({ groupInfo }) => {
         </div>
       </div>
 
-      <div className="shared-photo">
+      {/* <div className="shared-photo">
         <div className="shared-photo-header">
           <span>Shared photos</span>
           <span>See more</span>
@@ -94,7 +104,7 @@ export const ChatSummary = ({ groupInfo }) => {
         <div className="shared-photo-gallery" ref={galleryRef}>
           <Gallery parentRef={galleryRef} />
         </div>
-      </div>
+      </div> */}
 
       <div className="members">
         <div className="members-header">
@@ -129,6 +139,18 @@ export const ChatSummary = ({ groupInfo }) => {
           ))}
         </div>
       </div>
+
+      {/* <div className="function-list">
+        <div className="function-item">
+          <p>Auto delete message</p>
+          <Switch />
+        </div>
+
+        <div className="function-item">
+          <p>Leave the chat</p>
+        </div>
+      </div> */}
+      <FunctionList/>
     </React.Fragment>
   );
 };

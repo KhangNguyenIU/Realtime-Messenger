@@ -35,10 +35,11 @@ With the mentality of a young person and a passion to explore real-time technolo
 
 ## Features
 - Sending and recieving messages between user to user or among a group of users .
+- Forwarding message between groups
 - Automating delete message after a defined periods of time
 - End to end encryption .
 - Flexible Emoji .
-- Good User experience
+- User online status
 
 ## Literature Review
 ### 1. Nodejs 
@@ -48,7 +49,10 @@ Node.js comes up with its event-driven features and non-blocking I/O operations 
 
 
 ## System Design
+
+### A. Architecture
 ![alt text](https://res.cloudinary.com/katyperrycbt/image/upload/v1653570191/n0aat5n9niwjvyijniu4.png)
+
 
 ## Guideline
 

@@ -6,6 +6,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import useToggle from 'hooks/useToggle';
 import { CreateNewChatModal } from './CreateNewChatModal';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 /**
  * @author
  * @function GroupMessageList
@@ -49,7 +50,7 @@ export const GroupMessageList = ({
           <RestartAltIcon className="restart-icon" />
         </div>
         <div className="group-list">
-          <div>
+          <div className="list">
             {!!chatRooms.length &&
               chatRooms.map((room, index) => (
                 <GroupMessage
@@ -60,10 +61,15 @@ export const GroupMessageList = ({
                 />
               ))}
           </div>
- 
         </div>
 
-
+        <div className="navigation">
+          <Tooltip title="Go back" placement="right">
+            <IconButton>
+              <ArrowBackIosIcon sx={{ color: 'white', cursor: 'pointer' }} />
+            </IconButton>
+          </Tooltip>
+        </div>
       </div>
 
       {toggle && (
