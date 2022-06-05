@@ -7,6 +7,8 @@ import { Add } from '@mui/icons-material';
 import useToggle from 'hooks/useToggle';
 import { CreateNewChatModal } from './CreateNewChatModal';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useDispatch } from 'react-redux';
+import { setChatroom } from 'slices/Chatroom/chatroom.slice';
 /**
  * @author
  * @function GroupMessageList
@@ -20,12 +22,13 @@ export const GroupMessageList = ({
   getChatRooms,
 }) => {
   const [toggle, handleOpenToggle, handleCloseToggle, toggleFn] = useToggle();
-
+const dispatch = useDispatch()
   const handleClickListItem = (chatRoom) => {
     if (socket && currentChatRoom) {
       socket.emit('leaveRoom', currentChatRoom._id);
     }
     setCurrentChatRoom(chatRoom);
+    dispatch(setChatroom(chatRoom))
   };
 
   return (

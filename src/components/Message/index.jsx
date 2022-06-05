@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import messageService from 'services/message/message.service';
 
 import { GroupMessageList } from './GroupChatLeft';
 import { ChatBoxRight } from './ChatBoxRight';
 import { ChatSummary } from './ChatSummary';
-import { useDispatch } from 'react-redux';
+
 import { playSound } from 'slices/Common/sound.slice';
+import { hideLoading } from 'slices/Common/loading.slice';
+import { setChatroom } from 'slices/Chatroom/chatroom.slice';
 
 import { NEW_MESSAGE_SOUND } from 'constants';
 
@@ -18,7 +21,9 @@ import { NEW_MESSAGE_SOUND } from 'constants';
 export const MessageComponent = ({ socket }) => {
   const [chatRooms, setChatRooms] = useState([]);
   const [currentChatRoom, setCurrentChatRoom] = useState(null);
+  const chatSummaryRef = useRef(null)
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (socket) {
       socket.on('recieve-message', (data) => {
@@ -26,6 +31,7 @@ export const MessageComponent = ({ socket }) => {
         dispatch(
           playSound({ sound: NEW_MESSAGE_SOUND, play: true, playInLoop: false })
         );
+        dispatch(hideLoading());
       });
 
       socket.on('new-message-notify', (data) => {
@@ -41,6 +47,7 @@ export const MessageComponent = ({ socket }) => {
         }
       });
     }
+    //eslint-disable-next-line
   }, [socket, dispatch]);
 
   useEffect(() => {
@@ -52,10 +59,17 @@ export const MessageComponent = ({ socket }) => {
       const response = await messageService.getChatRoomofUser();
       setChatRooms(response.data.chatrooms);
       neeedUpdateCurrentRoom && setCurrentChatRoom(response.data.chatrooms[0]);
+      neeedUpdateCurrentRoom && dispatch(setChatroom(response.data.chatrooms[0]));
     } catch (error) {
       console.log(error);
     }
   };
+
+  const removeRooms = roomId =>{
+      let tempt =  [...chatRooms]
+      tempt =tempt.filter(x=>x._id !== roomId)
+      setChatRooms(tempt)
+  }
 
   return (
     <div className="message-wrapper">
@@ -73,12 +87,14 @@ export const MessageComponent = ({ socket }) => {
         <ChatBoxRight
           groupInfo={currentChatRoom}
           socket={socket}
-          //   chatRooms={chatRooms}
         />
       </div>
 
-      <div className="message-summary-right">
-        <ChatSummary groupInfo={currentChatRoom} />
+      <div className="message-summary-right" ref={chatSummaryRef} >
+        <ChatSummary 
+        removeRooms={removeRooms}
+        chatSummaryRef={chatSummaryRef}
+        />
       </div>
     </div>
   );

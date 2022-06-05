@@ -16,3 +16,8 @@ export const TYPE_IMAGE = "IMAGE";
 //Validation
 export const PASSWORD_REGEX= /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}/
 export const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+//Loading Type
+
+export const LOADING_GENERAL = "GENERAL";
+export const LOADING_MESSAGE = "MESSAGE";

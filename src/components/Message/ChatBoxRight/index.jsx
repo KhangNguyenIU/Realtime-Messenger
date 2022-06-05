@@ -1,6 +1,6 @@
 import useToggle from 'hooks/useToggle';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import messageService from 'services/message/message.service';
 import { addObjectToUniqueArray } from 'utils';
 import { ChatBoxContent } from './ChatBoxContent';
@@ -9,6 +9,8 @@ import { ForwardMessageModal } from './ForwardMessageModal';
 import { ChatInput } from './MessageText/ChatInput';
 import whyDidYouRender from '@welldone-software/why-did-you-render';
 import { TYPE_TEXT } from 'constants';
+import { showLoading } from 'slices/Common/loading.slice';
+import { LOADING_MESSAGE } from 'constants';
 
 whyDidYouRender(React, {
   onlyLogs: true,
@@ -22,6 +24,9 @@ whyDidYouRender(React, {
 
 export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
   const user = useSelector((state) => state.auth.user);
+  const currentChat = useSelector(state=>state.currentRoom)
+  const dispatch = useDispatch()
+
   const [textInput, setTextInput] = useState('');
   const [messageType, setMessageType] = useState(TYPE_TEXT);
   const [messages, setMessages] = useState(null);
@@ -89,6 +94,7 @@ export const ChatBoxRight = React.memo(({ socket, groupInfo }) => {
     };
     // console.log({ messagePacket }, messageType);
     socket.emit('send-message', messagePacket);
+    dispatch(showLoading({type:LOADING_MESSAGE}))
     socket.emit('user-stop-typing',{chatRoomId :groupInfo._id, user:user});
     setMessageType(TYPE_TEXT);
     setTextInput('');

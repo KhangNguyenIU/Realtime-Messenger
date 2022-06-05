@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 /**
 * @author
@@ -6,6 +7,8 @@ import React from 'react'
 **/
 
 export const User = (props) => {
+    const user = useSelector(state => state.auth)
+    console.log()
   return(
     <div>User</div>
    )

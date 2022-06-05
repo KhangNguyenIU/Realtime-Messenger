@@ -39,7 +39,16 @@
           font-family: 'Arial', sans;
         }
       }
+      .chatbox-header-clock{
+            display: flex;
+            align-items: center;
 
+            span{
+                font-size: 1rem;
+                margin-top: .1rem;
+                margin-left: .5rem;
+            }
+        }
       .group-header-info {
         display: flex;
         flex-direction: column;
@@ -64,7 +73,7 @@
 
         & > * {
           cursor: pointer;
-          margin: 0 1rem;
+          margin: 0 .5rem;
         }
       }
     }
@@ -91,6 +100,7 @@
         margin-bottom: 1rem;
         display: flex;
         width: 100%;
+        align-items: center;
         &.is-my-message {
           flex-direction: row-reverse;
         }
@@ -101,7 +111,7 @@
           &.is-my-message {
             flex-direction: row-reverse;
           }
-
+        
           .message-owner-avatar {
             margin-left: 1rem;
             width: 40px;
@@ -158,6 +168,12 @@
               }
             }
           }
+        }
+
+        .count-down{
+            display: flex;
+              align-items: center;
+              color: $primary-gray-light;
         }
         .message-forward {
           display: flex;
@@ -290,50 +306,29 @@
       }
     }
 
-    .shared-photo {
-      flex-basis: 50%;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      margin-bottom: 20px;
-      .shared-photo-header {
+    
+    .gallery{
         display: flex;
-        justify-content: space-between;
-        color: $secondary-gray;
-        align-items: flex-end;
-        font-size: 1rem;
-        font-family: 'Arial', sans;
-        & :last-child {
-          font-size: 0.8rem;
-          cursor: pointer;
-          color: $primary-gray-light;
-          text-decoration: underline;
-        }
-      }
-
-      .shared-photo-gallery {
-        flex: 1;
-        margin-top: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        .item {
-          flex: 50%;
-          width: 50%;
-          height: 50%;
-          padding: 2px;
-          img {
-            border-radius: 5px;
-            opacity: 1;
-            transition: 150ms;
+        // justify-content: space-between;
+        justify-content: center;
+        .item{
+            margin: .4rem; 
             cursor: pointer;
-
-            object-fit: cover;
-            &:hover {
-              opacity: 0.8;
+            img{
+                border-radius: 10px;
             }
-          }
+            &.number{
+                background-color: $secondary-purple-dark;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 10px;
+                color: white;
+                font-size: 1.2rem;
+                font-weight: 500;
+                font-family: 'Arial',  sans-serif;
+            }
         }
-      }
     }
 
     .members {
@@ -409,6 +404,8 @@
 
 .is-typing-text {
   color: $primary-gray;
-  margin-top: 0.2rem;
-  font-style: italic;
+  margin-top: 0.1rem;
+  margin-top: .1rem;
+//   font-style: italic;
+  font-family: 'Arial', sans-serif;
 }

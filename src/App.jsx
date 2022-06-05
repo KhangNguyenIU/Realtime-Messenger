@@ -47,7 +47,7 @@ function App() {
         <Routes>
           <Route path="auth" element={<PrivateRoute condition={false} redirect='/'><AuthPage /></PrivateRoute>} />
           <Route path="/" element={<HomePage socket={socket} />} />
-          <Route path="/profile/:id" element={<User  />} />
+          <Route path="/profile/:id" element={<User/>} />
           <Route
             path="/message"
             element={

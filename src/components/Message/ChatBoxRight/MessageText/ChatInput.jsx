@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { IconButton } from '@mui/material';
+import { CircularProgress, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import ImageIcon from '@mui/icons-material/Image';
@@ -10,6 +10,7 @@ import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 import Grow from '@mui/material/Grow';
 import { TYPE_IMAGE } from 'constants';
 import { TYPE_TEXT } from 'constants';
+import { LOADING_MESSAGE } from 'constants';
 /**
  * @author
  * @function ChatInput
@@ -22,13 +23,13 @@ export const ChatInput = ({
   groupInfo,
   socket,
   setMessageType,
-  messageType
+  messageType,
 }) => {
   const user = useSelector((state) => state.auth.user);
   const [fileInput, setFileInput] = useState('');
   const [previewSource, setPreviewSource] = useState('');
   const dispatch = useDispatch();
-
+  const loading = useSelector((state) => state.loading);
 
   const onLoadImage = (e) => {
     const file = e.target.files[0];
@@ -42,10 +43,9 @@ export const ChatInput = ({
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPreviewSource(reader.result);
-      setTextInput(reader.result)
+      setTextInput(reader.result);
     };
   };
-
 
   const handleChangeInput = (e) => {
     setTextInput(e.target.value);
@@ -87,8 +87,8 @@ export const ChatInput = ({
           />
         </div>
         <div className="input-field">
-          {(!previewSource || messageType===TYPE_TEXT) ? (
-            <Grow in={messageType===TYPE_TEXT}>
+          {!previewSource || messageType === TYPE_TEXT ? (
+            <Grow in={messageType === TYPE_TEXT}>
               <input
                 type="text"
                 value={textInput}
@@ -98,7 +98,7 @@ export const ChatInput = ({
               />
             </Grow>
           ) : (
-            <Grow in={!!previewSource && messageType===TYPE_IMAGE}>
+            <Grow in={!!previewSource && messageType === TYPE_IMAGE}>
               <div className="image-preview">
                 <div className="image-preview-box">
                   <img src={previewSource || ''} alt="preview" />
@@ -112,9 +112,13 @@ export const ChatInput = ({
             </Grow>
           )}
         </div>
-        <IconButton onClick={handleSendMessage}>
-          <SendIcon color="secondary" />
-        </IconButton>
+        {loading.show && loading.type === LOADING_MESSAGE ? (
+          <CircularProgress color="secondary" size={20} />
+        ) : (
+          <IconButton onClick={handleSendMessage}>
+            <SendIcon color="secondary" />
+          </IconButton>
+        )}
       </div>
     </React.Fragment>
   );

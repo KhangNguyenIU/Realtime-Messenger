@@ -1,4 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { showNotification } from 'slices/Common/notification.slice';
+import { hideLoading, showLoading } from 'slices/Common/loading.slice';
+import chatroomService from 'services/chatroom/chatroom.service';
+import { updateChatroom } from 'slices/Chatroom/chatroom.slice';
+
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import {
@@ -6,49 +16,51 @@ import {
   DialogActions,
   DialogContent,
   Divider,
-  TextField,
 } from '@mui/material';
 
-import { useDispatch, useSelector } from 'react-redux';
-
-import { showNotification } from 'slices/Common/notification.slice';
-import { hideLoading, showLoading } from 'slices/Common/loading.slice';
-
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-
-const marks = [
-  {
-    value: 0,
-    label: '0°C',
-  },
-  {
-    value: 20,
-    label: '20°C',
-  },
-  {
-    value: 37,
-    label: '37°C',
-  },
-  {
-    value: 100,
-    label: '100°C',
-  },
-];
 
 /**
  * @author
  * @function TimeModal
  **/
 
-export const TimeModal = ({ openDialog, handleCloseDialog }) => {
-  const [text, setText] = useState('');
-  const [loading, setLoading] = useState(true);
-
+export const TimeModal = ({ openDialog, handleCloseDialog, setChecked }) => {
+  
+  const [value, setValue] = useState(30);
   const dispatch = useDispatch();
-  function valuetext(value) {
-    return `${value}°C`;
-  }
+  const currentChat = useSelector((state) => state.currentRoom);
+  const turnAutoDeleteOn = async () => {
+    if (currentChat) {
+      dispatch(showLoading());
+      try {
+        const res = await chatroomService.turnAutoDelete(currentChat._id, {
+          autoDelete: true,
+          duration: value * 100,
+        });
+
+        if (res) {
+          dispatch(
+            showNotification({
+              message: 'Auto delete turn on',
+              type: 'success',
+            })
+          );
+          dispatch(updateChatroom({ autoDelete: true, duration: value * 100 }));
+          dispatch(hideLoading());
+          handleCloseDialog();
+          setChecked(true);
+        }
+      } catch (error) {
+        dispatch(
+          showNotification({
+            message: 'Error in turn auto delete on',
+            type: 'error',
+          })
+        );
+        dispatch(hideLoading());
+      }
+    }
+  };
   return (
     <div>
       <Dialog
@@ -62,19 +74,18 @@ export const TimeModal = ({ openDialog, handleCloseDialog }) => {
         </DialogTitle>
         <Divider />
         <DialogContent dividers={true}>
-          <Box sx={{ width: 300,height:100, mt:10 }}>
+          <Box sx={{ width: 300, height: 100, mt: 10 }}>
             <Slider
               aria-label="Custom marks"
-              defaultValue={20}
-              getAriaValueText={valuetext}
+              defaultValue={30}
               step={10}
               valueLabelDisplay="auto"
-            //   marks={marks}
+              onChange={(e, val) => setValue(val)}
             />
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button>Submit</Button>
+          <Button onClick={turnAutoDeleteOn}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>
