@@ -121,10 +121,22 @@ In this project there only 1 actor is the user who interact with the web page. i
 
 ## System Implementation
 
+### 1. Jsonwebtoken authentication
+We use Jsonwebtoken(Jwt) method to authenticate users because HTTP protocal is stateless, it can't remember who has logged into the system. Every time a user successfully logs into the system, the system will generate a token that has encrypted the user's information. The system sets the token in to the http-only cookie, which only retrieves by the http request. The user will attach this token in the header of each request, the system will decode this token string to verify who is using the system.
+
+### 2. MongoDB and Mongoose
+We use a nosql database - MongoDB. This database is really flexible, easy to access, and rarely requires joins or transactions, but when you need to do complex querying, it's more than up to the task. And Mongoose as a Node.js-based Object Data Modeling (ODM) library for MongoDB which enforces a specific schema at the application layer and avoids using SQL queries that can lead to SQL Injection risks
+
+### 4. File uploading
+In uploading images we choose a cloud database suitable for media storage, which is Cloudinary. But we were hesitating between uploading the image directly from the client side or converting the image to base64 then send to the backend for uploading. In the end we trade off performance when we choose the second option. Uploading images may take longer, but it reduces direct client-to-database interaction.
+
 
 
 ## Conclusion
 ### 1. What we have done
+-	We built from scratch a separate web server and client web app and connected them via API requests.
+-	We learned how the HTTP protocol works and the Bidirectional mechanism of Socket. How to keep user's logged in status through each request
+-	We completed the initial requirements through deploying a complete website through hosting and domain name services.
 
 
 ### 2. Further development
