@@ -68,7 +68,7 @@ export const Gallery = ({ chatSummaryRef }) => {
         {images?.length > 2 && (
           <div
             className="item number"
-            style={{ width: imageWidth, height: imageWidth }}
+            style={{ width: imageWidth, height: imageWidth ,maxWidth:'350px',maxHeight:'350px'}}
           >
             +{images.length}
           </div>

@@ -7,8 +7,10 @@ import { Add } from '@mui/icons-material';
 import useToggle from 'hooks/useToggle';
 import { CreateNewChatModal } from './CreateNewChatModal';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setChatroom } from 'slices/Chatroom/chatroom.slice';
+import { LOADING_FETCH_MESSAGES } from 'constants';
+import { useNavigate } from 'react-router-dom';
 /**
  * @author
  * @function GroupMessageList
@@ -22,13 +24,18 @@ export const GroupMessageList = ({
   getChatRooms,
 }) => {
   const [toggle, handleOpenToggle, handleCloseToggle, toggleFn] = useToggle();
-const dispatch = useDispatch()
+  const loading = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  
   const handleClickListItem = (chatRoom) => {
-    if (socket && currentChatRoom) {
-      socket.emit('leaveRoom', currentChatRoom._id);
+    if (!loading.show && loading.type !== LOADING_FETCH_MESSAGES) {
+      if (socket && currentChatRoom) {
+        socket.emit('leaveRoom', currentChatRoom._id);
+      }
+      setCurrentChatRoom(chatRoom);
+      dispatch(setChatroom(chatRoom));
     }
-    setCurrentChatRoom(chatRoom);
-    dispatch(setChatroom(chatRoom))
   };
 
   return (
@@ -68,7 +75,7 @@ const dispatch = useDispatch()
 
         <div className="navigation">
           <Tooltip title="Go back" placement="right">
-            <IconButton>
+            <IconButton onClick={()=> navigate('/')}>
               <ArrowBackIosIcon sx={{ color: 'white', cursor: 'pointer' }} />
             </IconButton>
           </Tooltip>

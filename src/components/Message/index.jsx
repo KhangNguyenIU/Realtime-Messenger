@@ -21,12 +21,13 @@ import { NEW_MESSAGE_SOUND } from 'constants';
 export const MessageComponent = ({ socket }) => {
   const [chatRooms, setChatRooms] = useState([]);
   const [currentChatRoom, setCurrentChatRoom] = useState(null);
-  const chatSummaryRef = useRef(null)
+  const chatSummaryRef = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (socket) {
       socket.on('recieve-message', (data) => {
+        console.log('recieved message', data);
         getChatRooms(false);
         dispatch(
           playSound({ sound: NEW_MESSAGE_SOUND, play: true, playInLoop: false })
@@ -59,17 +60,18 @@ export const MessageComponent = ({ socket }) => {
       const response = await messageService.getChatRoomofUser();
       setChatRooms(response.data.chatrooms);
       neeedUpdateCurrentRoom && setCurrentChatRoom(response.data.chatrooms[0]);
-      neeedUpdateCurrentRoom && dispatch(setChatroom(response.data.chatrooms[0]));
+      neeedUpdateCurrentRoom &&
+        dispatch(setChatroom(response.data.chatrooms[0]));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const removeRooms = roomId =>{
-      let tempt =  [...chatRooms]
-      tempt =tempt.filter(x=>x._id !== roomId)
-      setChatRooms(tempt)
-  }
+  const removeRooms = (roomId) => {
+    let tempt = [...chatRooms];
+    tempt = tempt.filter((x) => x._id !== roomId);
+    setChatRooms(tempt);
+  };
 
   return (
     <div className="message-wrapper">
@@ -84,16 +86,13 @@ export const MessageComponent = ({ socket }) => {
       </div>
 
       <div className="message-chatbox-middle">
-        <ChatBoxRight
-          groupInfo={currentChatRoom}
-          socket={socket}
-        />
+        <ChatBoxRight groupInfo={currentChatRoom} socket={socket} />
       </div>
 
-      <div className="message-summary-right" ref={chatSummaryRef} >
-        <ChatSummary 
-        removeRooms={removeRooms}
-        chatSummaryRef={chatSummaryRef}
+      <div className="message-summary-right" ref={chatSummaryRef}>
+        <ChatSummary
+          removeRooms={removeRooms}
+          chatSummaryRef={chatSummaryRef}
         />
       </div>
     </div>

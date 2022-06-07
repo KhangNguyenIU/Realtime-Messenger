@@ -12,7 +12,6 @@ import AccessAlarmsIcon from '@mui/icons-material/AccessAlarms';
 
 export const ChatBoxHeader = () => {
     const groupInfo = useSelector(state=>state.currentRoom);
-    console.log(groupInfo);
   return (
     <div className="chatbox-header">
       <div className="chatbox-header-info">

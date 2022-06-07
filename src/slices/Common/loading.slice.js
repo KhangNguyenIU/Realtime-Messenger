@@ -16,8 +16,7 @@ const loadingSlice =createSlice({
         }),
         hideLoading: () => ({
             ...initialState,
-        }),
-    
+        })
     }
 })
 

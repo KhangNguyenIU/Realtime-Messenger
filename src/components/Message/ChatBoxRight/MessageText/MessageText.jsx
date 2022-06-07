@@ -5,7 +5,6 @@ import useWindowSize from 'hooks/useWindowSize';
 import { TYPE_TEXT } from 'constants';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 /**
  * @author
  * @function MessageText
@@ -22,7 +21,6 @@ export const MessageText = ({
   const [tooltipPlace, setTooltipPlace] = useState('bottom');
   const { height: windowHeight } = useWindowSize();
   const currentRoom = useSelector((state) => state.currentRoom);
-  console.log('fropm now', moment());
   //   console.log({message})
   const prefix = useMemo(
     () => (isMyMessage ? 'is-my-message' : ' '),
@@ -110,7 +108,6 @@ export const MessageText = ({
 
 const CountDown = ({ time }) => {
   const [count, setCount] = useState(time);
-  console.log({ count });
   useEffect(() => {
     const interval = setInterval(() => {
       setCount(count - 1);
